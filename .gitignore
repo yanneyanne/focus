@@ -26,6 +26,9 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
+# Dev-output for generated webpack scripts
+client/public/bundle.js
+
 # Dependency directories
 node_modules
 jspm_packages
@@ -38,3 +41,6 @@ jspm_packages
 
 # Mac system files
 .DS_Store
+
+# Misc
+.env
