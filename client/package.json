@@ -1,8 +1,8 @@
 {
-  "name": "minimal-electron-boilerplate",
-  "productName": "ElectronReact",
+  "name": "focus",
+  "productName": "focus",
   "version": "0.10.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "description": "",
   "main": "main.js",
   "scripts": {
     "hot-server": "cross-env NODE_ENV=development node --max_old_space_size=2096 -r babel-register server.js",
