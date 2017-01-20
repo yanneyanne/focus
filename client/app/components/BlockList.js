@@ -4,6 +4,9 @@ export default class BlockList extends Component {
 	getListItems() {
 		return this.props.listItems || []	
 	}
+	isAddingItem() {
+		return this.props.isAddingItem
+	}
 	render() {
 		return (
 			<div>
@@ -13,7 +16,10 @@ export default class BlockList extends Component {
 						<button>X</button>
 					</div>
 				)}
-				<button>+</button>
+				{this.isAddingItem() ? 
+					<input type="text" /> :
+					<button onClick={this.props.addingItem}>+</button>
+				}
 			</div>
 		)	
 	}

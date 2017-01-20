@@ -5,7 +5,7 @@ export default class Header extends Component {
 		return (
 			<div>
 				<p>Logo</p>
-				<button />
+				<button>?</button>
 			</div>
 		)	
 	}
