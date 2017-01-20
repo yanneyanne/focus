@@ -42,5 +42,8 @@ jspm_packages
 # Mac system files
 .DS_Store
 
+# vim edit files
+*.swp
+
 # Misc
 .env
