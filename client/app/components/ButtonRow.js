@@ -4,7 +4,7 @@ export default class ButtonRow extends Component {
 	render() {
 		return (
 			<div>
-				<p>ButtonRow</p>
+				<button />
 			</div>
 		)	
 	}
