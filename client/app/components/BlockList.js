@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import * as actionCreators from '../actions/action_creators'
 
 export default class BlockList extends Component {
 	getListItems() {
@@ -13,14 +15,25 @@ export default class BlockList extends Component {
 				{this.getListItems().map(item =>
 					<div key={item}>
 						{item}
-						<button>X</button>
+						<button onClick={() => this.props.deleteItem(item)}>
+							X
+						</button>
 					</div>
 				)}
 				{this.isAddingItem() ? 
 					<input type="text" /> :
-					<button onClick={this.props.addingItem}>+</button>
+					<button onClick={() => this.props.addingItem() }>+</button>
 				}
 			</div>
 		)	
 	}
 }
+
+function mapStateToProps(state) {
+	return {
+		listItems: state.getIn(['blockList','blockees']),
+		isAddingItem: state.get('isAddingItem')
+	}
+}
+
+export const BlockListContainer = connect(mapStateToProps, actionCreators)(BlockList)
