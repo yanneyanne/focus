@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styles from './App.css';
 import Header from './Header'
-import BlockList from './BlockList'
+import { BlockListContainer } from './BlockList'
 import Timer from './Timer'
 import ButtonRow from './ButtonRow'
 import {List} from 'immutable'
@@ -13,7 +13,7 @@ export default class App extends Component {
 		return (
 			<div>
 				<Header />
-				<BlockList listItems={dummyItems} />
+				<BlockListContainer listItems={dummyItems} />
 				<Timer />
 				<ButtonRow />
 			</div>
