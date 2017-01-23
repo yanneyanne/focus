@@ -9,5 +9,6 @@ export default function(state = Map(), action) {
 		case 'DEFAULT':
 			return defaultFunction()
 	}
+	return state
 	
 }
