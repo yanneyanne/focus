@@ -6,7 +6,9 @@ function defaultFunction() {
 
 export default function(state = Map(), action) {
 	switch (action.type) {
-		case 'DEFAULT':
+		case 'ADDING':
+			return defaultFunction()
+		case 'DELETE':
 			return defaultFunction()
 	}
 	return state
