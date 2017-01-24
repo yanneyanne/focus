@@ -5,10 +5,19 @@ function defaultFunction(state) {
 	return state
 }
 
+function toggleAdding(state) {
+	const status = state.getIn(['blockList', 'isAddingItem'], undefined) 	
+	var nextStatus = true
+	if (status===true) {
+		nextStatus = false
+	}
+	return state.setIn(['blockList', 'isAddingItem'], nextStatus)
+}
+
 export default function(state = Map(), action) {
 	switch (action.type) {
-		case 'ADDING':
-			return defaultFunction(state)
+		case 'TOGGLE_ADDING':
+			return toggleAdding(state)
 		case 'DELETE':
 			return defaultFunction(state)
 	}

@@ -1,7 +1,6 @@
-export function addingItem() {
-	console.log("Adding item")
+export function toggleAdding() {
 	return {
-		type: 'ADDING'
+		type: 'TOGGLE_ADDING'
 	}
 }
 

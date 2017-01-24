@@ -21,8 +21,10 @@ export default class BlockList extends Component {
 					</div>
 				)}
 				{this.isAddingItem() ? 
-					<input type="text" /> :
-					<button onClick={() => this.props.addingItem() }>+</button>
+					<div>
+						<input type="text" /><button onClick={() => this.props.toggleAdding() }>X</button>
+					</div> :
+					<button onClick={() => this.props.toggleAdding() }>+</button>
 				}
 			</div>
 		)	
@@ -32,7 +34,7 @@ export default class BlockList extends Component {
 function mapStateToProps(state) {
 	return {
 		listItems: state.getIn(['blockList','blockees']),
-		isAddingItem: state.get('isAddingItem')
+		isAddingItem: state.getIn(['blockList', 'isAddingItem'])
 	}
 }
 
