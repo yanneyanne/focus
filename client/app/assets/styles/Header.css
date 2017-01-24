@@ -1,0 +1,10 @@
+.header {
+	margin: 0;
+	background: gray;
+	padding: 26px;	
+}
+
+.header button {
+	padding: 0px;
+	margin-left: 90%;
+}
