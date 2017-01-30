@@ -27,7 +27,7 @@ coverage
 build/Release
 
 # Dev-output for generated webpack scripts
-client/public/bundle.js
+client/public/
 
 # Dependency directories
 node_modules
