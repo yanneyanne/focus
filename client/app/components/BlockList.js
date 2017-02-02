@@ -22,7 +22,12 @@ export default class BlockList extends Component {
 				)}
 				{this.isAddingItem() ? 
 					<div className="listElement">
-						<input type="text" /><button onClick={() => this.props.toggleAdding() }>X</button>
+							<input ref="input"
+								onKeyPress={(e) => {(e.key === 'Enter' ? this.props.addItem(this.refs.input.value) : null)}}>
+							</input>
+							<button onClick={() => this.props.toggleAdding() }>
+								X
+							</button>
 					</div> :
 					<button onClick={() => this.props.toggleAdding() }>+</button>
 				}
