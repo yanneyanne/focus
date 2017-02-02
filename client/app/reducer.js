@@ -15,10 +15,10 @@ function toggleAdding(state) {
 }
 
 function addItem(state, item) {
-	console.log(item)
 	const blockees = state.getIn(['blockList', 'blockees'], List())
-	blockees.push(item)
-	return state.setIn(['blockList', 'blockees'], blockees)
+	const newBlockees = blockees.push(item)
+	console.log(newBlockees.toJS())
+	return state.setIn(['blockList', 'blockees'], newBlockees)
 }
 
 export default function(state = Map(), action) {
