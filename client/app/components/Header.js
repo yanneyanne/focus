@@ -4,7 +4,7 @@ export default class Header extends Component {
 	render() {
 		return (
 			<div className="Header">
-				Logo
+				<img src="../app/assets/logo_placeholder.png"/>
 				<button>?</button>
 			</div>
 		)	
