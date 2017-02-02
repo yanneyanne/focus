@@ -11,7 +11,7 @@ export default class BlockList extends Component {
 	}
 	render() {
 		return (
-			<div>
+			<div className="BlockList">
 				{this.getListItems().map(item =>
 					<div key={item}>
 						{item}
@@ -21,7 +21,7 @@ export default class BlockList extends Component {
 					</div>
 				)}
 				{this.isAddingItem() ? 
-					<div>
+					<div className="listElement">
 						<input type="text" /><button onClick={() => this.props.toggleAdding() }>X</button>
 					</div> :
 					<button onClick={() => this.props.toggleAdding() }>+</button>
