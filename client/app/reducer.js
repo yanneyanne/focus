@@ -24,12 +24,23 @@ function addItem(state, item) {
 	return state
 }
 
+function deleteItem(state, item) {
+	const blockees = state.getIn(['blockList', 'blockees'], List())
+	const index = blockees.indexOf(item)
+	if (index>=0) {
+		const newBlockees = blockees.delete(index)
+		console.log(newBlockees.toJS())
+		return state.setIn(['blockList', 'blockees'], newBlockees)
+	}
+	return state
+}
+
 export default function(state = Map(), action) {
 	switch (action.type) {
 		case 'TOGGLE_ADDING':
 			return toggleAdding(state)
 		case 'DELETE':
-			return defaultFunction(state)
+			return deleteItem(state, action.item)
 		case 'ADD_ITEM':
 			return addItem(state, action.item)
 	}
