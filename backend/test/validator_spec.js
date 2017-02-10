@@ -6,24 +6,33 @@ import {validateWeb} from '../src/validator'
 describe ('Validator', () => {
 	describe ('correctly validates', () => {
 		it ('incorrect www sites', () => {
-			const site = "ww.fi.com"
-			var result = validateWeb(site)
-			expect(result).to.equal(false)		
-		})
-		it ('incorrect .-something', () => {
-			const site = "www.facebook.lksdjflakjsd"
-			var result = validateWeb(site)
-			expect(result).to.equal(false)		
-		})
+  			const site = "ww.fi.com"
+  			var result = validateWeb(site)
+  			result.then((result) => {
+  			 	expect(result).to.equal(false)
+           	})
+  		})
+  		it ('incorrect .-something', () => {
+  			const site = "www.facebook.xxxxxxxyyyyyyy"
+  			var result = validateWeb(site)
+  			result.then((result) => {
+  			 	expect(result).to.equal(false)
+       	    })
+  		})
 		it('non-existant website', () => {
 			const site = "www.falajsflkjasdlfkjasdlkfjlaskdjfalkskalklas.com"
 			var result = validateWeb(site)
-			expect(result).to.equal(false)
+			result.then((result) => {
+			 	expect(result).to.equal(false)
+            })
 		})
 		it('existing site', () => {
-			const site = "www.github.com"
-			var result = validateWeb(site)
-			expect(true).to.equal(result)
-		})
+			const site = "http://www.google.com"
+            var result = validateWeb(site)
+			result.then((result) => {
+			 	expect(result).to.equal(true)
+				done()
+            })
+        })
 	})
 })

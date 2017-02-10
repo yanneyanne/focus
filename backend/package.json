@@ -23,6 +23,8 @@
     "mocha": "^3.2.0"
   },
   "dependencies": {
-    "immutable": "^3.8.1"
+    "immutable": "^3.8.1",
+    "request": "^2.79.0",
+    "request-promise": "^4.1.1"
   }
 }
