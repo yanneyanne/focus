@@ -1,33 +1,32 @@
-import {List, Map} from 'immutable';
-import {expect} from 'chai';
+import {expect} from 'chai'
 
 import {validateWeb} from '../src/validator'
 
 describe ('Validator', () => {
-	describe ('correctly validates', () => {
-		it ('incorrect www sites', () => {
+	describe ('web', () => {
+		it ('identifies incorrect www sites', () => {
 			const site = "ww.fi.com"
 			var result = validateWeb(site)
 			result.then((result) => {
 				expect(result).to.equal(false)
 			})
 		})
-		it ('incorrect .-something', () => {
+		it ('identifies incorrect .-something', () => {
 			const site = "www.facebook.xxxxxxxyyyyyyy"
 			var result = validateWeb(site)
 			result.then((result) => {
 				expect(result).to.equal(false)
 			})
 		})
-		it('non-existant website', () => {
+		it('identifies non-existant website', () => {
 			const site = "www.falajsflkjasdlfkjasdlkfjlaskdjfalkskalklas.com"
 			var result = validateWeb(site)
 			result.then((result) => {
 				expect(result).to.equal(false)
 			})
 		})
-		it('existing site', () => {
-			const site = "http://www.google.com"
+		it('identifies existing site', () => {
+			const site = "http://www.github.com"
 			var result = validateWeb(site)
 			result.then((result) => {
 				expect(result).to.equal(true)
