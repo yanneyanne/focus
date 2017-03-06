@@ -1,6 +1,6 @@
 import {expect} from 'chai'
 
-import {isWebsite} from '../src/parser.js'
+import {isWebsite} from '../lib/parser.js'
 
 describe ('Parser', () => {
 	describe('web', () => {

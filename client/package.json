@@ -1,5 +1,5 @@
 {
-  "name": "my-electron-app",
+  "name": "focus",
   "version": "0.1.0",
   "main": "main.js",
   "devDependencies": {
@@ -17,16 +17,29 @@
     "redux": "^3.6.0",
     "style-loader": "^0.13.0",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.1"
-  },
-  "scripts": {
-    "start": "./node_modules/electron-prebuilt/dist/Electron.app/Contents/MacOS/Electron .",
-    "watch": "./node_modules/.bin/webpack-dev-server",
-    "electron-rebuild": "./node_modules/.bin/electron-rebuild"
+    "webpack-dev-server": "^2.4.1",
+    "chai": "^3.5.0",
+    "chai-immutable": "^1.6.0",
+    "mocha": "^3.2.0"
   },
   "dependencies": {
     "electron": "^1.6.1",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "immutable": "^3.8.1",
+    "request": "^2.79.0",
+    "request-promise": "^4.1.1"
+  },
+  "scripts": {
+    "start": "./node_modules/electron-prebuilt/dist/Electron.app/Contents/MacOS/Electron .",
+    "watch": "./node_modules/.bin/webpack-dev-server",
+    "electron-rebuild": "./node_modules/.bin/electron-rebuild",
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive",
+    "test:watch": "npm run test -- --watch"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
   }
 }

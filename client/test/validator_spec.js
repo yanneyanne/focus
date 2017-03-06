@@ -1,6 +1,6 @@
 import {expect} from 'chai'
 
-import {validateWeb} from '../src/validator'
+import {validateWeb} from '../lib/validator'
 
 describe ('Validator', () => {
 	describe ('web', () => {
