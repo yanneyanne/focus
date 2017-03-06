@@ -9,6 +9,7 @@ import styles from './styles/main.less';
 'use strict';
 
 const store = createStore(reducer)
+
 render(
 	<Provider store = {store}>
 		<App />
