@@ -1,7 +1,6 @@
-var app = require('app');
-var BrowserWindow = require('browser-window');
-
-require('crash-reporter').start();
+var electron = require('electron');
+var app = electron.app;
+var BrowserWindow = electron.BrowserWindow;
 
 app.on('window-all-closed', function() {
   if (process.platform != 'darwin') {
