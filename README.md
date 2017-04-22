@@ -1,15 +1,8 @@
 # focus
 A productivity tool that picks up where your willpower left off
 
-## usage
+## Dev usage
 
-Type,
+Type `npm install && npm run watch` and in a separate terminal window type `npm start` to start the frontend react electron application.
 
-`
-npm install && npm run watch 
-`
-
-and in separate terminal window,
-
-
-` npm start `
+Start the server used for blocking by typing `./run.py` while in the root directory.
