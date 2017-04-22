@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actionCreators from '../actions/action_creators'
+import actionCreators from '../actions/'
 
 export default class BlockList extends Component {
 	getListItems() {
