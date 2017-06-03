@@ -1,4 +1,7 @@
-#!blocker/env/bin/python
+#!blocker/env/bin/python3
 # App used to start the blocker backend
+
 from blocker import app
-app.run(debug=True)
+
+if __name__=='__main__':
+    app.run(debug=True)
