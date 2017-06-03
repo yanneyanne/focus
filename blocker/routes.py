@@ -1,6 +1,7 @@
-from flask import Flask, jsonify
+from flask import jsonify, request
 from blocker import app
 
+# Currently hardcoded, but will be replaced by database
 blockees = [
     {
         'id': 1,
@@ -22,3 +23,17 @@ def index():
 @app.route('/blockees', methods=['GET'])
 def get_blockees():
     return jsonify({'blockees': blockees})
+
+@app.route('/blockees', methods=['POST'])
+def add_blockee():
+    if (not request.json or
+        not 'representation' in request.json or
+        not 'url' in request.json):
+        abort(400)
+    blockee = {
+        'id': blockees[-1]['id'] + 1,
+        'representation': request.json['representation'],
+        'url': request.json['url']
+    }
+    blockees.append(blockee)
+    return jsonify({'blockee': blockee}), 201
