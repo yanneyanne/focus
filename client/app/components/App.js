@@ -5,14 +5,12 @@ import Timer from './Timer'
 import ButtonRow from './ButtonRow'
 import {List} from 'immutable'
 
-const dummyItems = List.of('www.facebook.com', 'www.youtube.com')
-
 export default class App extends Component {
   render() {
     return (
       <div>
         <Header />
-        <BlockListContainer listItems={dummyItems} />
+        <BlockListContainer />
         <Timer />
         <ButtonRow />
       </div>
