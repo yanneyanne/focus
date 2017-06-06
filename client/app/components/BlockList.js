@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actionCreators from '../actions/action_creators'
+import ActionCreators from '../actions/'
 
 export default class BlockList extends Component {
 	getListItems() {
@@ -43,4 +43,4 @@ function mapStateToProps(state) {
 	}
 }
 
-export const BlockListContainer = connect(mapStateToProps, actionCreators)(BlockList)
+export const BlockListContainer = connect(mapStateToProps, ActionCreators)(BlockList)
