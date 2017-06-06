@@ -1,6 +1,7 @@
 import * as types from './types'
 
 export function toggleAdding() {
+  console.log("Toggle adding in list action")
   return {
   	type: types.TOGGLE_ADDING
   }

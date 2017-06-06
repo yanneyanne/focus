@@ -1,9 +1,10 @@
 import createReducer from './create_reducer'
 import * as types from '../actions/'
-import {List, Map} from 'immutable'
+import { List, Map } from 'immutable'
 
 export const list = createReducer(Map(), {
   [types.TOGGLE_ADDING](state, action) {
+    console.log("Toggle adding in reducer")
     const status = state.getIn('isAddingItem', undefined)   
     var nextStatus = true
     if (status===true) {

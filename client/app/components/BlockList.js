@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import actionCreators from '../actions/'
+import ActionCreators from '../actions/'
+import { bindActionCreators } from 'redux'
+import Immutable from 'immutable'
 
-export default class BlockList extends Component {
+class BlockList extends Component {
 
   getListItems() {
     return this.props.listItems || []	
@@ -37,14 +39,18 @@ export default class BlockList extends Component {
         }
       </div>
     )	
-  }
+  } 
 }
 
 function mapStateToProps(state) {
   return {
-    listItems: state.getIn(['blockList','blockees']),
-    isAddingItem: state.getIn(['blockList', 'isAddingItem'])
+    listItems: state.list.getIn('blockees'),
+    isAddingItem: state.list.get('isAddingItem')
   }
 }
 
-export const BlockListContainer = connect(mapStateToProps, actionCreators)(BlockList)
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(ActionCreators, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlockList)

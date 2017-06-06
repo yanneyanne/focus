@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Header from './Header'
-import { BlockListContainer } from './BlockList'
+import BlockListContainer from './BlockList'
 import Timer from './Timer'
 import ButtonRow from './ButtonRow'
 import {List} from 'immutable'
