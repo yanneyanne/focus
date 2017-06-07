@@ -1,4 +1,5 @@
 import {List, Map} from 'immutable'
+import * as types from '../actions/types'
 
 function defaultFunction(state) {
 	console.log("Calling default function in reducer")
@@ -37,11 +38,11 @@ function deleteItem(state, item) {
 
 export default function(state = Map(), action) {
 	switch (action.type) {
-		case 'TOGGLE_ADDING':
+		case types.TOGGLE_ADDING:
 			return toggleAdding(state)
-		case 'DELETE':
+		case types.DELETE:
 			return deleteItem(state, action.item)
-		case 'ADD_ITEM':
+		case types.ADD_ITEM:
 			return addItem(state, action.item)
 	}
 	return state
