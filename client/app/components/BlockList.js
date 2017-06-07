@@ -3,6 +3,10 @@ import { connect } from 'react-redux'
 import ActionCreators from '../actions/'
 
 export default class BlockList extends Component {
+	componentWillMount() {
+		this.props.loadList()
+	}
+
 	getListItems() {
 		return this.props.listItems || []	
 	}

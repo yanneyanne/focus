@@ -21,3 +21,10 @@ export function deleteItem(item) {
     item
   }
 }
+
+export function loadList() {
+  console.log("Loading list from db action")
+  return {
+    type: types.LOAD_LIST
+  }
+}
