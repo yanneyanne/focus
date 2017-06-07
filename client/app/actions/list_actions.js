@@ -2,11 +2,12 @@ import * as types from './types'
 
 export function toggleAdding() {
   return {
-  	type: types.TOGGLE_ADDING
+  type: types.TOGGLE_ADDING
   }
 }
 
 export function addItem(item) {
+  console.log("Adding item")
   return {
     type: types.ADD_ITEM,
     item
