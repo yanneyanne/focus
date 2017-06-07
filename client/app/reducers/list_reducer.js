@@ -7,31 +7,31 @@ function defaultFunction(state) {
 }
 
 function toggleAdding(state) {
-	const status = state.getIn(['blockList', 'isAddingItem'], undefined) 	
+	const status = state.get('isAddingItem', undefined) 	
 	var nextStatus = true
 	if (status===true) {
 		nextStatus = false
 	}
-	return state.setIn(['blockList', 'isAddingItem'], nextStatus)
+	return state.set('isAddingItem', nextStatus)
 }
 
 function addItem(state, item) {
-	const blockees = state.getIn(['blockList', 'blockees'], List())
+	const blockees = state.get('blockees', List())
 	if (!blockees.includes(item)) {
 		const newBlockees = blockees.push(item)
 		console.log(newBlockees.toJS())
-		return state.setIn(['blockList', 'blockees'], newBlockees)
+		return state.set('blockees', newBlockees)
 	}
 	return state
 }
 
 function deleteItem(state, item) {
-	const blockees = state.getIn(['blockList', 'blockees'], List())
+	const blockees = state.get('blockees', List())
 	const index = blockees.indexOf(item)
 	if (index>=0) {
 		const newBlockees = blockees.delete(index)
 		console.log(newBlockees.toJS())
-		return state.setIn(['blockList', 'blockees'], newBlockees)
+		return state.set('blockees', newBlockees)
 	}
 	return state
 }

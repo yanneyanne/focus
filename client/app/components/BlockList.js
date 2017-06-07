@@ -38,8 +38,8 @@ export default class BlockList extends Component {
 
 function mapStateToProps(state) {
 	return {
-		listItems: state.getIn(['blockList','blockees']),
-		isAddingItem: state.getIn(['blockList', 'isAddingItem'])
+		listItems: state.list.get('blockees'),
+		isAddingItem: state.list.get('isAddingItem')
 	}
 }
 
