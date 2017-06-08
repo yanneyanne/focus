@@ -5,12 +5,12 @@ from blocker import app
 blockees = [
     {
         'id': 1,
-        'representation': 'facebook.com',
+        'name': 'facebook.com',
         'url': 'https://www.facebook.com'
     },
     {
         'id': 2,
-        'representation': 'instagram.com',
+        'name': 'instagram.com',
         'url': 'https://www.instagram.com'
     }
 ]
@@ -28,12 +28,12 @@ def get_blockees():
 @app.route('/blockees', methods=['POST'])
 def add_blockee():
     if (not request.json or
-        not 'representation' in request.json or
+        not 'name' in request.json or
         not 'url' in request.json):
         abort(400)
     blockee = {
         'id': blockees[-1]['id'] + 1,
-        'representation': request.json['representation'],
+        'name': request.json['name'],
         'url': request.json['url']
     }
     blockees.append(blockee)
