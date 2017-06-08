@@ -1,4 +1,4 @@
-import {List, Map} from 'immutable'
+import { List, Map } from 'immutable'
 import * as types from '../actions/types'
 
 function defaultFunction(state) {
@@ -39,7 +39,11 @@ function deleteItem(state, item) {
 function loadBlockees(state, blockees) {
   console.log("Loading list in reducer!")
   console.log(blockees)
-  return state
+  let newBlockees = state.get('blockees', List())
+  blockees.forEach((blockee) => {
+    newBlockees = newBlockees.push(blockee.representation)
+  })
+  return state.set('blockees', newBlockees)
 }
 
 export default function(state = Map(), action) {

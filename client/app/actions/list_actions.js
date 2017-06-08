@@ -1,4 +1,5 @@
 import * as types from './types'
+import { List } from 'immutable'
 import api from '../lib/api.js'
 
 export function toggleAdding() {
@@ -28,9 +29,11 @@ export function fetchBlockees() {
   return (dispatch, getState) => {
     const route = 'blockees'
     return api.get(route).then((resp) => {
-      dispatch(loadBlockees({blockees: resp}))
+      let blockees = List(resp.blockees)
+      dispatch(loadBlockees({blockees}))
     }).catch((err) => {
       console.log("Error connecting to backend application")
+      console.log(err)
     })
   }
 }
