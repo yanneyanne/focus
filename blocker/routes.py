@@ -28,16 +28,15 @@ def get_blockees():
 @app.route('/blockees', methods=['POST'])
 def add_blockee():
     if (not request.json or
-        not 'name' in request.json or
-        not 'url' in request.json):
+        not 'name' in request.json):
         abort(400)
+    # TODO: This needs to also validate and find the appropriate url
     blockee = {
         'id': blockees[-1]['id'] + 1,
         'name': request.json['name'],
-        'url': request.json['url']
     }
     blockees.append(blockee)
-    return jsonify({'blockee': blockee}), 201
+    return jsonify({'blockee': make_public_blockee(blockee)}), 201
 
 
 @app.route('/blockees/<int:blockee_id>', methods=['DELETE'])

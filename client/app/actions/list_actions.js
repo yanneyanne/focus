@@ -8,12 +8,27 @@ export function toggleAdding() {
   }
 }
 
-export function addItem(item) {
+export function addItem(name) {
   console.log("Adding item")
+  return (dispatch, getState) => {
+    const route = 'blockees'
+    const params = { "name": name }
+    return api.post(route, params).then((resp) => {
+      let item = {
+        name: resp.blockee.name,
+        uri: resp.blockee.uri
+      }
+      dispatch(addItemToState(item))
+    })
+  }
+}
+
+function addItemToState(item) {
   return {
     type: types.ADD_ITEM,
     item
   }
+
 }
 
 export function deleteItem(item) {

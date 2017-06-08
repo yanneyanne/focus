@@ -19,8 +19,8 @@ export default class BlockList extends Component {
     return (
       <div className="BlockList">
         {this.getListItems().map(item =>
-          <div key={item}>
-            {item}
+          <div key={item.uri}>
+            {item.name}
             <button onClick={() => this.props.deleteItem(item)}>
               X
             </button>

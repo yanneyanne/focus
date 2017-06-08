@@ -19,7 +19,6 @@ function addItem(state, item) {
   const blockees = state.get('blockees', List())
   if (!blockees.includes(item)) {
     const newBlockees = blockees.push(item)
-    console.log(newBlockees.toJS())
     return state.set('blockees', newBlockees)
   }
   return state
@@ -37,11 +36,12 @@ function deleteItem(state, item) {
 }
 
 function loadBlockees(state, blockees) {
-  console.log("Loading list in reducer!")
-  console.log(blockees)
   let newBlockees = state.get('blockees', List())
   blockees.forEach((blockee) => {
-    newBlockees = newBlockees.push(blockee.representation)
+    newBlockees = newBlockees.push({
+      name: blockee.name,
+      uri: blockee.uri
+    })
   })
   return state.set('blockees', newBlockees)
 }
@@ -58,5 +58,4 @@ export default function(state = Map(), action) {
       return loadBlockees(state, action.blockees)
   }
   return state
-  
 }
