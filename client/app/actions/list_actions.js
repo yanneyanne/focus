@@ -1,4 +1,5 @@
 import * as types from './types'
+import api from '../lib/api.js'
 
 export function toggleAdding() {
   return {
@@ -22,9 +23,21 @@ export function deleteItem(item) {
   }
 }
 
-export function loadList() {
+export function fetchBlockees() {
   console.log("Loading list from db action")
+  return (dispatch, getState) => {
+    const route = 'blockees'
+    return api.get(route).then((resp) => {
+      dispatch(loadBlockees({blockees: resp}))
+    }).catch((err) => {
+      console.log("Error connecting to backend application")
+    })
+  }
+}
+
+function loadBlockees({ blockees }) {
   return {
-    type: types.LOAD_LIST
+    type: types.LOAD_BLOCKEES,
+    blockees
   }
 }

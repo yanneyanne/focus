@@ -1,6 +1,5 @@
 import {List, Map} from 'immutable'
 import * as types from '../actions/types'
-import api from '../lib/api.js'
 
 function defaultFunction(state) {
   console.log("Calling default function in reducer")
@@ -37,8 +36,9 @@ function deleteItem(state, item) {
   return state
 }
 
-function loadList(state) {
+function loadBlockees(state, blockees) {
   console.log("Loading list in reducer!")
+  console.log(blockees)
   return state
 }
 
@@ -50,8 +50,8 @@ export default function(state = Map(), action) {
       return deleteItem(state, action.item)
     case types.ADD_ITEM:
       return addItem(state, action.item)
-    case types.LOAD_LIST:
-      return loadList(state)
+    case types.LOAD_BLOCKEES:
+      return loadBlockees(state, action.blockees)
   }
   return state
   
