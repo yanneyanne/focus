@@ -152,3 +152,6 @@ ENV/
 
 # mkdocs documentation
 /site
+
+# DB-json file
+blocker/blocker_db.json
