@@ -8,28 +8,38 @@ class Api {
   }
 
   static get(route) {
-    return this.xhr(route, null, 'GET');
-  }
-
-  //static put(route, params) {
-  //  return this.xhr(route, params, 'PUT')
-  //}
-
-  static post(route, params) {
-    return this.xhr(route, params, 'POST')
-  }
-
-  static delete(route, params) {
-    return this.xhr(route, params, 'DELETE')
-  }
-
-  static xhr(route, params, verb) {
     const host = 'http://localhost:5000/'
     const url = `${host}${route}`
-    let options = Object.assign({ method: verb }, params ? { body: JSON.stringify(params) } : null );
+    let options = { method: 'GET' }
     options.headers = Api.headers()
-    
+
     return fetch(url,options).then((response) => {
+      let json = response.json()
+      if(response.ok) {
+        return json
+      }
+      return json.then(err => {throw err})
+    })
+    return this.xhr(route, null, 'GET')
+  }
+
+  //static put(uri) {
+  //  return this.xhr(uri, 'PUT')
+  //}
+
+  static post(uri) {
+    return this.xhr(uri, 'POST')
+  }
+
+  static delete(uri) {
+    return this.xhr(uri, 'DELETE')
+  }
+
+  static xhr(uri, verb) {
+    let options = { method: verb }
+    options.headers = Api.headers()
+
+    return fetch(uri, options).then((response) => {
       let json = response.json()
       if(response.ok) {
         return json

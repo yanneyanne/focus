@@ -33,6 +33,14 @@ function addItemToState(item) {
 
 export function deleteItem(item) {
   console.log("Deleting item")
+  return (dispatch, getState) => {
+    return api.delete(item.uri).then((resp) => { 
+      dispatch(deleteItemFromState(item))
+    })
+  }
+}
+
+function deleteItemFromState(item) {
   return {
     type: types.DELETE,
     item

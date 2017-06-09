@@ -1,3 +1,4 @@
+#!env/bin/python3
 from flask import jsonify, request, make_response, url_for
 from blocker import app
 
@@ -20,9 +21,16 @@ blockees = [
 def index():
     return "Hello, World!"
 
+@app.route('/blockees/<int:blockee_id>', methods = ['GET'])
+def get_blockee(blockee_id):
+    blockee = list(filter(lambda b: b['id'] == blockee_id, blockees))
+    if len(blockee) == 0:
+        abort(404)
+    return jsonify( { 'blockee': make_public_blockee(blockee[0]) } )
+
 @app.route('/blockees', methods=['GET'])
 def get_blockees():
-    return jsonify({'blockees': [make_public_blockee(b) for b in blockees]})
+    return jsonify({'blockees': list(map(make_public_blockee, blockees))})
 
 
 @app.route('/blockees', methods=['POST'])
@@ -39,6 +47,7 @@ def add_blockee():
     return jsonify({'blockee': make_public_blockee(blockee)}), 201
 
 
+# This is super inefficient
 @app.route('/blockees/<int:blockee_id>', methods=['DELETE'])
 def remove_blockee(blockee_id):
     blockee = [b for b in blockees if b['id']==blockee_id]
@@ -52,7 +61,7 @@ def make_public_blockee(blockee):
     new_blockee = {}
     for field in blockee:
         if field == 'id':
-            new_blockee['uri'] = url_for('get_blockees', id=blockee['id'], _external=True)
+            new_blockee['uri'] = url_for('get_blockee', blockee_id=blockee['id'], _external=True)
         else:
             new_blockee[field] = blockee[field]
     return new_blockee
