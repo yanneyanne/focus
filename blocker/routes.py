@@ -1,20 +1,10 @@
 #!env/bin/python3
 from flask import jsonify, request, make_response, url_for
 from blocker import app
+from tinydb import TinyDB, Query
 
-# Currently hardcoded, but will be replaced by database
-blockees = [
-    {
-        'id': 1,
-        'name': 'facebook.com',
-        'url': 'https://www.facebook.com'
-    },
-    {
-        'id': 2,
-        'name': 'instagram.com',
-        'url': 'https://www.instagram.com'
-    }
-]
+
+db = TinyDB('blocker/blocker_db.json')
 
 @app.route('/')
 @app.route('/index')
@@ -23,14 +13,14 @@ def index():
 
 @app.route('/blockees/<int:blockee_id>', methods = ['GET'])
 def get_blockee(blockee_id):
-    blockee = list(filter(lambda b: b['id'] == blockee_id, blockees))
-    if len(blockee) == 0:
+    blockee = db.get(eid=blockee_id)
+    if blockee is None:
         abort(404)
-    return jsonify( { 'blockee': make_public_blockee(blockee[0]) } )
+    return jsonify( { 'blockee': make_public_blockee(blockee) } )
 
 @app.route('/blockees', methods=['GET'])
 def get_blockees():
-    return jsonify({'blockees': list(map(make_public_blockee, blockees))})
+    return jsonify({'blockees': list(map(make_public_blockee, db.all()))})
 
 
 @app.route('/blockees', methods=['POST'])
@@ -40,20 +30,20 @@ def add_blockee():
         abort(400)
     # TODO: This needs to also validate and find the appropriate url
     blockee = {
-        'id': blockees[-1]['id'] + 1,
         'name': request.json['name'],
+        'url': request.json['name']
     }
-    blockees.append(blockee)
+    id = db.insert(blockee)
+    db.update({'id': id}, eids=[id])
+    blockee = db.get(eid=id)
     return jsonify({'blockee': make_public_blockee(blockee)}), 201
 
 
-# This is super inefficient
 @app.route('/blockees/<int:blockee_id>', methods=['DELETE'])
 def remove_blockee(blockee_id):
-    blockee = [b for b in blockees if b['id']==blockee_id]
-    if len(blockee) == 0:
+    if not db.contains(eids=[blockee_id]):
         abort(404)
-    blockees.remove(blockee[0])
+    db.remove(eids=[blockee_id])
     return jsonify({'result': True})
 
 
