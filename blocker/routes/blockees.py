@@ -6,11 +6,6 @@ from tinydb import TinyDB, Query
 
 db = TinyDB('blocker/blocker_db.json')
 
-@app.route('/')
-@app.route('/index')
-def index():
-    return "Hello, World!"
-
 @app.route('/blockees/<int:blockee_id>', methods = ['GET'])
 def get_blockee(blockee_id):
     blockee = db.get(eid=blockee_id)
