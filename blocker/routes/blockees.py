@@ -1,21 +1,22 @@
 #!env/bin/python3
-from flask import jsonify, request, make_response, url_for
+from flask import jsonify, request, make_response, url_for, abort
 from blocker import app
-from tinydb import TinyDB, Query
+from tinydb import TinyDB
 
 
 db = TinyDB('blocker/blocker_db.json')
+blockees = db.table('blockees')
 
 @app.route('/blockees/<int:blockee_id>', methods = ['GET'])
 def get_blockee(blockee_id):
-    blockee = db.get(eid=blockee_id)
+    blockee = blockees.get(eid=blockee_id)
     if blockee is None:
         abort(404)
     return jsonify( { 'blockee': make_public_blockee(blockee) } )
 
 @app.route('/blockees', methods=['GET'])
 def get_blockees():
-    return jsonify({'blockees': list(map(make_public_blockee, db.all()))})
+    return jsonify({'blockees': list(map(make_public_blockee, blockees.all()))})
 
 
 @app.route('/blockees', methods=['POST'])
@@ -28,17 +29,17 @@ def add_blockee():
         'name': request.json['name'],
         'url': request.json['name']
     }
-    id = db.insert(blockee)
-    db.update({'id': id}, eids=[id])
-    blockee = db.get(eid=id)
+    id = blockees.insert(blockee)
+    blockees.update({'id': id}, eids=[id])
+    blockee = blockees.get(eid=id)
     return jsonify({'blockee': make_public_blockee(blockee)}), 201
 
 
 @app.route('/blockees/<int:blockee_id>', methods=['DELETE'])
 def remove_blockee(blockee_id):
-    if not db.contains(eids=[blockee_id]):
+    if not blockees.contains(eids=[blockee_id]):
         abort(404)
-    db.remove(eids=[blockee_id])
+    blockees.remove(eids=[blockee_id])
     return jsonify({'result': True})
 
 
