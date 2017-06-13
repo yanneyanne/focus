@@ -1,10 +1,10 @@
 import * as types from './types'
 import { List } from 'immutable'
-import api from '../lib/api.js'
+import api from '../lib/api'
 
 export function toggleAdding() {
   return {
-  type: types.TOGGLE_ADDING
+    type: types.TOGGLE_ADDING
   }
 }
 
