@@ -4,7 +4,7 @@ import ActionCreators from '../actions/'
 
 class BlockList extends Component {
   componentWillMount() {
-    this.props.fetchBlockees()
+    this.props.loadBlockees()
   }
 
   getListItems() {
