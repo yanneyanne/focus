@@ -1,10 +1,10 @@
 import * as types from './types'
 import { List } from 'immutable'
-import api from '../lib/api.js'
+import api from '../lib/api'
 
 export function toggleAdding() {
   return {
-  type: types.TOGGLE_ADDING
+    type: types.TOGGLE_ADDING
   }
 }
 
@@ -18,12 +18,12 @@ export function addItem(name) {
         name: resp.blockee.name,
         uri: resp.blockee.uri
       }
-      dispatch(addItemToState(item))
+      dispatch(fireAddItem(item))
     })
   }
 }
 
-function addItemToState(item) {
+function fireAddItem(item) {
   return {
     type: types.ADD_ITEM,
     item
@@ -35,25 +35,25 @@ export function deleteItem(item) {
   console.log("Deleting item")
   return (dispatch, getState) => {
     return api.delete(item.uri).then((resp) => { 
-      dispatch(deleteItemFromState(item))
+      dispatch(fireDeleteItem(item))
     })
   }
 }
 
-function deleteItemFromState(item) {
+function fireDeleteItem(item) {
   return {
     type: types.DELETE,
     item
   }
 }
 
-export function fetchBlockees() {
+export function loadBlockees() {
   console.log("Loading list from db action")
   return (dispatch, getState) => {
     const route = 'blockees'
     return api.get(route).then((resp) => {
       let blockees = List(resp.blockees)
-      dispatch(loadBlockees({blockees}))
+      dispatch(fireLoadBlockees({blockees}))
     }).catch((err) => {
       console.log("Error connecting to backend application")
       console.log(err)
@@ -61,7 +61,7 @@ export function fetchBlockees() {
   }
 }
 
-function loadBlockees({ blockees }) {
+function fireLoadBlockees({ blockees }) {
   return {
     type: types.LOAD_BLOCKEES,
     blockees

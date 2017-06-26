@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ActionCreators from '../actions/'
 
-export default class BlockList extends Component {
+class BlockList extends Component {
   componentWillMount() {
-    this.props.fetchBlockees()
+    this.props.loadBlockees()
   }
 
   getListItems() {
@@ -49,4 +49,4 @@ function mapStateToProps(state) {
   }
 }
 
-export const BlockListContainer = connect(mapStateToProps, ActionCreators)(BlockList)
+export default connect(mapStateToProps, ActionCreators)(BlockList)
