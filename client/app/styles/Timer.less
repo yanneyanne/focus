@@ -2,8 +2,16 @@
 	width: 100%;
 	position: absolute;
 	bottom: @buttonRowHeight;
-	p {
-		text-align: center;
+	input {
+		width: 100%;
 		margin: auto;	
+		text-align: center;
+		direction:rtl;
+		border: none;
+		color: transparent;
+		text-shadow: 0 0 0 black;
+		&:focus {
+			outline: none;
+		}
 	}
 }
