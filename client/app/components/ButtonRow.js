@@ -6,7 +6,7 @@ class ButtonRow extends Component {
   render() {
     return (
       <div className="ButtonRow">
-        <button onClick = {() => this.props.initiateBlock()}>Block</button>
+        <button onClick = {() => this.props.initiateBlock(this.props.time)}>Block</button>
       </div>
     )
   }
@@ -14,6 +14,7 @@ class ButtonRow extends Component {
 
 function mapStateToProps(state) {
   return {
+    time: state.block.get('time')
 
   }
 }

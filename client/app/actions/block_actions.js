@@ -1,23 +1,27 @@
 import * as types from './types'
 import api from '../lib/api'
 
-export function initiateBlock() {
+export function initiateBlock(time) {
   console.log("Initiating block")
   return (dispatch, getState) => {
     const route = 'blocker'
     const params = {"state": "active"}
     return api.put(route, params).then((resp) => {
-      console.log("In actions: response: ")
-      console.log(resp.new_state)
-      let blocker_active = resp.new_state === 'active'
-      dispatch(fireInitiateBlock(blocker_active))
+      dispatch(fireInitiateBlock(time))
     })
   }
 }
 
-export function fireInitiateBlock(blocker_active) {
+export function fireInitiateBlock(time) {
   return {
     type: types.INITIATE_BLOCK,
-    blocker_active
+    time
+  }
+}
+
+export function setTime(newTime) {
+  return {
+    type: types.SET_TIME,
+    newTime
   }
 }

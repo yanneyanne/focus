@@ -9,30 +9,33 @@ class Timer extends Component {
   }
 
   sanitizeInput(e) {
-    // Allow only numeric or backspace input 4 digits long
+    // Allow 4 digits of numeric input...
     if((e.charCode < 48 || e.charCode > 57) ||
+      // ... and backspaces
       e.target.value.length > 4)
       e.preventDefault()
   }
 
-  formatTime(e) {
+  formatTimeInput(e) {
     var newTime = e.target.value.replace(":", "")
     // Keep the colon at the right place
     if(newTime.length > 2) {
       newTime = newTime.substring(0, newTime.length - 2) + ":"
         + newTime.substring(newTime.length - 2, newTime.length)
     }
-    e.target.value = newTime
+    this.props.setTime(newTime)
   }
+
 
   render() {
     return (
       <div className="Timer">
         <input
-          disabled={this.props.blocker_active}
-          onKeyPress={(e) => this.sanitizeInput(e)}
-          onChange={(e) => this.formatTime(e)}
-          placeholder={this.getPlaceholderValue()} />
+          value = {this.props.time}
+          disabled = {this.props.blockerActive}
+          onKeyPress = {(e) => this.sanitizeInput(e)}
+          onChange = {(e) => this.formatTimeInput(e)}
+          placeholder = {this.getPlaceholderValue()} />
       </div>
     ) 
   }
@@ -40,7 +43,8 @@ class Timer extends Component {
 
 function mapStateToProps(state) {
   return {
-    blocker_active: state.block.get('blocker_active')
+    blockerActive: state.block.get('blockerActive'),
+    time: state.block.get('time')
   }
 }
 
