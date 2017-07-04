@@ -7,15 +7,23 @@ export function initiateBlock(time) {
     const route = 'blocker'
     const params = {"state": "active"}
     return api.put(route, params).then((resp) => {
+      let timer = setInterval(() => dispatch(tick()), 1000);
       dispatch(fireInitiateBlock(time))
     })
   }
 }
 
-export function fireInitiateBlock(time) {
+function fireInitiateBlock(time) {
   return {
     type: types.INITIATE_BLOCK,
     time
+  }
+}
+
+function tick() {
+  console.log("A tick!")
+  return {
+    type: types.TICK
   }
 }
 

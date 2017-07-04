@@ -20,8 +20,8 @@ function configureStore(initialState) {
 
 const store = configureStore({})
 render(
-	<Provider store = {store}>
-		<App />
-	</Provider>,
-	document.getElementById('content')
+  <Provider store = {store}>
+    <App />
+  </Provider>,
+  document.getElementById('content')
 )
