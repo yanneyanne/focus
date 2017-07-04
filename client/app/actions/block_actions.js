@@ -7,7 +7,9 @@ export function initiateBlock() {
     const route = 'blocker'
     const params = {"state": "active"}
     return api.put(route, params).then((resp) => {
-      let blocker_active = resp.newstate === 'active'
+      console.log("In actions: response: ")
+      console.log(resp.new_state)
+      let blocker_active = resp.new_state === 'active'
       dispatch(fireInitiateBlock(blocker_active))
     })
   }

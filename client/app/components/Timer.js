@@ -19,7 +19,8 @@ class Timer extends Component {
     var newTime = e.target.value.replace(":", "")
     // Keep the colon at the right place
     if(newTime.length > 2) {
-      newTime = newTime.substring(0, newTime.length - 2) + ":" + newTime.substring(newTime.length - 2, newTime.length)
+      newTime = newTime.substring(0, newTime.length - 2) + ":"
+        + newTime.substring(newTime.length - 2, newTime.length)
     }
     e.target.value = newTime
   }
@@ -28,6 +29,7 @@ class Timer extends Component {
     return (
       <div className="Timer">
         <input
+          disabled={this.props.blocker_active}
           onKeyPress={(e) => this.sanitizeInput(e)}
           onChange={(e) => this.formatTime(e)}
           placeholder={this.getPlaceholderValue()} />
@@ -38,7 +40,7 @@ class Timer extends Component {
 
 function mapStateToProps(state) {
   return {
-
+    blocker_active: state.block.get('blocker_active')
   }
 }
 
