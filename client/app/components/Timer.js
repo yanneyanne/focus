@@ -9,9 +9,8 @@ class Timer extends Component {
   }
 
   sanitizeInput(e) {
-    // Allow 4 digits of numeric input...
+    // Allow 4 digits of numeric input as well as backspaces
     if((e.charCode < 48 || e.charCode > 57) ||
-      // ... and backspaces
       e.target.value.length > 4)
       e.preventDefault()
   }

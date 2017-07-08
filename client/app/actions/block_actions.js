@@ -5,18 +5,18 @@ export function initiateBlock(time) {
   console.log("Initiating block")
   return (dispatch, getState) => {
     const route = 'blocker'
-    const params = {"state": "active"}
+    const params = {'state': 'active'}
     return api.put(route, params).then((resp) => {
-      let timer = setInterval(() => dispatch(tick()), 1000);
-      dispatch(fireInitiateBlock(time))
+      let tickerId = setInterval(() => dispatch(tick()), 1000);
+      dispatch(fireInitiateBlock(tickerId))
     })
   }
 }
 
-function fireInitiateBlock(time) {
+function fireInitiateBlock(tickerId) {
   return {
     type: types.INITIATE_BLOCK,
-    time
+    tickerId
   }
 }
 

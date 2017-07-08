@@ -20,3 +20,7 @@ export function tick(time) {
   let outputMins = String(minutes)
   return outputMins + ":" + outputSecs
 }
+
+export function isTimerDone(time) {
+    return time==="0:00"
+}

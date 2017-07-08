@@ -15,7 +15,6 @@ class ButtonRow extends Component {
 function mapStateToProps(state) {
   return {
     time: state.block.get('time')
-
   }
 }
 
