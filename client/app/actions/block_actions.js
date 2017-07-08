@@ -1,21 +1,34 @@
 import * as types from './types'
 import api from '../lib/api'
 
-export function initiateBlock() {
-  console.log("Initiating block")
+export function initiateBlock(time) {
   return (dispatch, getState) => {
     const route = 'blocker'
-    const params = {"state": "active"}
+    const params = {'state': 'active'}
     return api.put(route, params).then((resp) => {
-      let blocker_active = resp.newstate === 'active'
-      dispatch(fireInitiateBlock(blocker_active))
+      let tickerId = setInterval(() => dispatch(tick()), 1000);
+      dispatch(fireInitiateBlock(tickerId))
     })
   }
 }
 
-export function fireInitiateBlock(blocker_active) {
+function fireInitiateBlock(tickerId) {
   return {
     type: types.INITIATE_BLOCK,
-    blocker_active
+    tickerId
+  }
+}
+
+function tick() {
+  console.log("A tick!")
+  return {
+    type: types.TICK
+  }
+}
+
+export function setInitialTime(newTime) {
+  return {
+    type: types.SET_INITIAL_TIME,
+    newTime
   }
 }

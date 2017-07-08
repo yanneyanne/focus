@@ -6,7 +6,8 @@ class ButtonRow extends Component {
   render() {
     return (
       <div className="ButtonRow">
-        <button onClick = {() => this.props.initiateBlock()}>Block</button>
+        <button disabled = {this.props.blockerActive}
+          onClick = {() => this.props.initiateBlock()}>Block</button>
       </div>
     )
   }
@@ -14,7 +15,7 @@ class ButtonRow extends Component {
 
 function mapStateToProps(state) {
   return {
-
+    blockerActive: state.block.get('blockerActive')
   }
 }
 
