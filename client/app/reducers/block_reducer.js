@@ -7,7 +7,7 @@ function initiateBlock(state, tickerId) {
   return newState.set('blockerActive', true)
 }
 
-function setTime(state, newTime) {
+function setInitialTime(state, newTime) {
   return state.set('time', newTime)
 }
 
@@ -28,8 +28,8 @@ export default function(state = Map(), action) {
   switch (action.type) {
     case types.INITIATE_BLOCK:
       return initiateBlock(state, action.tickerId)
-    case types.SET_TIME:
-      return setTime(state, action.newTime)
+    case types.SET_INITIAL_TIME:
+      return setInitialTime(state, action.newTime)
     case types.TICK:
       return performTick(state)
   }

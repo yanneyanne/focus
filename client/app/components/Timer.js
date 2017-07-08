@@ -22,7 +22,7 @@ class Timer extends Component {
       newTime = newTime.substring(0, newTime.length - 2) + ":"
         + newTime.substring(newTime.length - 2, newTime.length)
     }
-    this.props.setTime(newTime)
+    this.props.setInitialTime(newTime)
   }
 
 

@@ -26,9 +26,9 @@ function tick() {
   }
 }
 
-export function setTime(newTime) {
+export function setInitialTime(newTime) {
   return {
-    type: types.SET_TIME,
+    type: types.SET_INITIAL_TIME,
     newTime
   }
 }
