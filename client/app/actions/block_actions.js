@@ -2,7 +2,6 @@ import * as types from './types'
 import api from '../lib/api'
 
 export function initiateBlock(time) {
-  console.log("Initiating block")
   return (dispatch, getState) => {
     const route = 'blocker'
     const params = {'state': 'active'}

@@ -15,7 +15,7 @@ class Timer extends Component {
       e.preventDefault()
   }
 
-  formatTimeInput(e) {
+  onTimeChange(e) {
     var newTime = e.target.value.replace(":", "")
     // Keep the colon at the right place
     if(newTime.length > 2) {
@@ -33,7 +33,7 @@ class Timer extends Component {
           value = {this.props.time}
           disabled = {this.props.blockerActive}
           onKeyPress = {(e) => this.sanitizeInput(e)}
-          onChange = {(e) => this.formatTimeInput(e)}
+          onChange = {(e) => this.onTimeChange(e)}
           placeholder = {this.getPlaceholderValue()} />
       </div>
     ) 

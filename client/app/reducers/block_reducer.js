@@ -13,11 +13,15 @@ function setTime(state, newTime) {
 
 function performTick(state) {
   let newTime = tick(state.get('time'))
+  let newState = state
   if (isTimerDone(newTime)) {
-    let ticker = state.get('ticker')
-    clearInterval(ticker)
+    let tickerId = state.get('tickerId')
+    clearInterval(tickerId)
+    newState = state.set('blockerActive', false)
+    newState = newState.set('tickerId', undefined)
+    newTime = ""
   }
-  return state.set('time', newTime)
+  return newState.set('time', newTime)
 }
 
 export default function(state = Map(), action) {
