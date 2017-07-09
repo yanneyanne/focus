@@ -9,7 +9,6 @@ export function toggleAdding() {
 }
 
 export function addItem(name) {
-  console.log("Adding item")
   return (dispatch, getState) => {
     const route = 'blockees'
     const params = { "name": name }
@@ -32,7 +31,6 @@ function fireAddItem(item) {
 }
 
 export function deleteItem(item) {
-  console.log("Deleting item")
   return (dispatch, getState) => {
     return api.delete(item.uri).then((resp) => { 
       dispatch(fireDeleteItem(item))
