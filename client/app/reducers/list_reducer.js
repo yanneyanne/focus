@@ -17,11 +17,17 @@ function toggleAdding(state) {
 
 function addItem(state, item) {
   const blockees = state.get('blockees', List())
-  if (!blockees.includes(item)) {
-    const newBlockees = blockees.push(item)
-    return state.set('blockees', newBlockees)
+  let alreadyAdded = false
+  blockees.forEach((b) => {
+    if (b['name']===item['name'] && b['uri']===item['uri'] ) {
+      alreadyAdded = true
+    }
+  })
+  if (alreadyAdded) {
+    return state
   }
-  return state
+  const newBlockees = blockees.push(item)
+  return state.set('blockees', newBlockees)
 }
 
 function deleteItem(state, item) {

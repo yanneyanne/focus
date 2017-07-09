@@ -25,14 +25,17 @@ def add_blockee():
         not 'name' in request.json):
         abort(400)
     # TODO: This needs to also validate and find the appropriate url
-    blockee = {
+    new_blockee = {
         'name': request.json['name'],
         'url': request.json['name']
     }
-    id = blockees.insert(blockee)
+    for b in blockees:
+        if b['name']==new_blockee['name']: # Item has already been added
+            return jsonify({'blockee': make_public_blockee(b)}), 201
+    id = blockees.insert(new_blockee)
     blockees.update({'id': id}, eids=[id])
-    blockee = blockees.get(eid=id)
-    return jsonify({'blockee': make_public_blockee(blockee)}), 201
+    new_blockee = blockees.get(eid=id)
+    return jsonify({'blockee': make_public_blockee(new_blockee)}), 201
 
 
 @app.route('/blockees/<int:blockee_id>', methods=['DELETE'])
