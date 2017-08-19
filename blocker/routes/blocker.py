@@ -25,9 +25,9 @@ def set_blocker_state():
 
     # Edit hosts file
     if (request.json['state'] == 'active'):
-        block_hosts("test")
+        block_hosts(["test"])
     else:
-        unblock_hosts()
+        unblock_hosts(["test"])
 
     # Edit blocker status database entry
     State = Query()
