@@ -1,7 +1,9 @@
 #!env/bin/python3
-from flask import jsonify, request, make_response, abort
+from flask import json, jsonify, request, make_response, abort
 from blocker import app
 from tinydb import TinyDB, Query
+from utils.host_writer import block_hosts, unblock_hosts
+from blocker.routes.blockees import get_blockees
 
 db = TinyDB('blocker/blocker_db.json')
 blocker = db.table('blocker')
@@ -16,10 +18,25 @@ def get_blocker():
 
 @app.route('/blocker', methods=['PUT'])
 def set_blocker_state():
+    # Check api call error
     if (not request.json or
-        not 'state' in request.json or
+        'state' not in request.json or
         (request.json['state'] not in ['active', 'inactive'])):
         abort(400)
+
+    # Retrieve the appropriate urls to be blocked
+    blockees = json.loads(get_blockees().get_data())["blockees"]
+    hosts = []
+    for host_obj in blockees:
+        hosts.append(host_obj["url"])
+
+    # Edit hosts file
+    if (request.json['state'] == 'active'):
+        block_hosts(hosts)
+    else:
+        unblock_hosts(hosts)
+
+    # Edit blocker status database entry
     State = Query()
     if blocker.contains(State.state != None):
         blocker.update({'state': request.json['state']}, cond=State.state!=None)
