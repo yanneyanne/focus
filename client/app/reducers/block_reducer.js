@@ -1,6 +1,6 @@
 import { List, Map } from 'immutable'
 import * as types from '../actions/types'
-import { tick } from '../lib/time_helper'
+import { nextTick } from '../lib/time_helper'
 
 function initiateBlock(state, tickerId) {
   let newState = state.set('tickerId', tickerId)
@@ -12,7 +12,7 @@ function setInitialTime(state, newTime) {
 }
 
 function performTick(state) {
-  let newTime = tick(state.get('time'))
+  let newTime = nextTick(state.get('time'))
   return state.set('time', newTime)
 }
 
