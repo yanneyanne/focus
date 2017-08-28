@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ActionCreators from '../actions/'
+import { isTimerDone } from '../lib/time_helper'
 
 class Timer extends Component {
-
-  getPlaceholderValue() {
-    return "00:00"
-  }
 
   sanitizeInput(e) {
     // Allow 4 digits of numeric input as well as backspaces
@@ -15,7 +12,7 @@ class Timer extends Component {
       e.preventDefault()
   }
 
-  onTimeChange(e) {
+  onTimeInputChange(e) {
     var newTime = e.target.value.replace(":", "")
     // Keep the colon at the right place
     if(newTime.length > 2) {
@@ -25,6 +22,11 @@ class Timer extends Component {
     this.props.setInitialTime(newTime)
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    if (isTimerDone(nextProps.time)) {
+      this.props.deactivateBlock()
+    }
+  }
 
   render() {
     return (
@@ -33,8 +35,8 @@ class Timer extends Component {
           value = {this.props.time}
           disabled = {this.props.blockerActive}
           onKeyPress = {(e) => this.sanitizeInput(e)}
-          onChange = {(e) => this.onTimeChange(e)}
-          placeholder = {this.getPlaceholderValue()} />
+          onChange = {(e) => this.onTimeInputChange(e)}
+          placeholder = "00:00" />
       </div>
     ) 
   }

@@ -1,7 +1,7 @@
 import * as types from './types'
 import api from '../lib/api'
 
-export function initiateBlock(time) {
+export function initiateBlock() {
   return (dispatch, getState) => {
     const route = 'blocker'
     const params = {'state': 'active'}
@@ -30,5 +30,21 @@ export function setInitialTime(newTime) {
   return {
     type: types.SET_INITIAL_TIME,
     newTime
+  }
+}
+
+export function deactivateBlock() {
+  return (dispatch, getState) => {
+    const route = 'blocker'
+    const params = {'state': 'inactive'}
+    return api.put(route, params).then((resp) => {
+      dispatch(fireDeactivateBlock())
+    })
+  }
+}
+
+function fireDeactivateBlock(tickerId) {
+  return {
+    type: types.DEACTIVATE_BLOCK,
   }
 }

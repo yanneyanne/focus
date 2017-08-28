@@ -1,6 +1,6 @@
 
 // Takes the time string and returns a new string of the time after one decrement
-export function tick(time) {
+export function nextTick(time) {
   let stringArr = time.split(":")
   let seconds = Number(stringArr[stringArr.length - 1])
   let minutes = 0
