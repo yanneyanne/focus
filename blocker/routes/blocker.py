@@ -2,7 +2,7 @@
 from flask import json, jsonify, request, make_response, abort
 from blocker import app
 from tinydb import TinyDB, Query
-from utils.host_writer import block_hosts, unblock_hosts
+from blocker.utils.host_writer import block_hosts, unblock_hosts
 from blocker.routes.blockees import get_blockees
 
 db = TinyDB('blocker/blocker_db.json')
