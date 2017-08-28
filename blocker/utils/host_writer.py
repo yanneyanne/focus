@@ -9,9 +9,10 @@ def block_hosts(new_hosts):
                 hosts_file.write(new_host)
 
 def unblock_hosts(hosts):
-    with open("/etc/hosts", 'r+') as hosts_file:
+    hosts_list = []
+    with open("/etc/hosts", 'r') as hosts_file:
         hosts_list = hosts_file.readlines()
-        for (nr, line) in enumerate(hosts_list):
-            if "#focus" in line:
-               hosts_list.pop(nr)
-        hosts_file.write("".join(hosts_list))
+    with open("/etc/hosts", 'w') as hosts_file:
+        for line in hosts_list:
+            if "#focus" not in line:
+                hosts_file.write(line)
