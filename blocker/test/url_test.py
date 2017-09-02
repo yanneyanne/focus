@@ -1,4 +1,4 @@
-from blocker.utils.url_helper import is_url
+from blocker.utils.url_helper import *
 
 def test_is_url():
     assert is_url("google") == False
@@ -12,4 +12,9 @@ def test_is_url():
     assert is_url("http://www.google.com") == True
 
 def test_complete_url():
-    pass
+    assert complete_url("google.com") == \
+            "www.google.com http://www.google.com https://www.google.com"
+    assert complete_url("www.google.com") == \
+            "www.google.com http://www.google.com https://www.google.com"
+    assert complete_url("http://www.google.com") == \
+            "www.google.com http://www.google.com https://www.google.com"
