@@ -2,6 +2,7 @@
 from flask import jsonify, request, make_response, url_for, abort
 from blocker import app
 from tinydb import TinyDB
+from blocker.utils.url_helper import is_url, complete_url
 
 
 db = TinyDB('blocker/blocker_db.json')
@@ -12,11 +13,11 @@ def get_blockee(blockee_id):
     blockee = blockees.get(eid=blockee_id)
     if blockee is None:
         abort(404)
-    return jsonify( { 'blockee': make_public_blockee(blockee) } )
+    return jsonify({'blockee': make_public_blockee(blockee)}), 200
 
 @app.route('/blockees', methods=['GET'])
 def get_blockees():
-    return jsonify({'blockees': list(map(make_public_blockee, blockees.all()))})
+    return jsonify({'blockees': list(map(make_public_blockee, blockees.all()))}), 200
 
 
 @app.route('/blockees', methods=['POST'])
@@ -24,10 +25,13 @@ def add_blockee():
     if (not request.json or
         not 'name' in request.json):
         abort(400)
-    # TODO: This needs to also validate and find the appropriate url
+
+    if not is_url(request.json['name']):
+        abort(422)
+
     new_blockee = {
         'name': request.json['name'],
-        'url': request.json['name']
+        'url': complete_url(request.json['name'])
     }
     for b in blockees:
         if b['name']==new_blockee['name']: # Item has already been added
@@ -43,7 +47,7 @@ def remove_blockee(blockee_id):
     if not blockees.contains(eids=[blockee_id]):
         abort(404)
     blockees.remove(eids=[blockee_id])
-    return jsonify({'result': True})
+    return jsonify({'result': True}), 200
 
 
 def make_public_blockee(blockee):
@@ -59,3 +63,7 @@ def make_public_blockee(blockee):
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
+
+@app.errorhandler(422)
+def not_found(error):
+    return make_response(jsonify({'error': 'Incorrectly formatted blockee url'}), 422)

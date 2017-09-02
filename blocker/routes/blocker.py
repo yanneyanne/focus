@@ -25,10 +25,10 @@ def set_blocker_state():
         abort(400)
 
     # Retrieve the appropriate urls to be blocked
-    blockees = json.loads(get_blockees().get_data())["blockees"]
+    blockees = json.loads(get_blockees().get_data())['blockees']
     hosts = []
     for host_obj in blockees:
-        hosts.append(host_obj["url"])
+        hosts.append(host_obj['url'])
 
     # Edit hosts file
     if (request.json['state'] == 'active'):
@@ -47,4 +47,3 @@ def set_blocker_state():
 @app.errorhandler(400)
 def unexpected_payload(error):
     return make_response(jsonify({'error': 'Expected JSON payload with "state" set to "active" or "inactive"'}), 400)
-
