@@ -33,7 +33,7 @@ def add_blockee():
     }
     for b in blockees:
         if b['name']==new_blockee['name']: # Item has already been added
-            return make_response(jsonify({'blockee': make_public_blockee(b)}), 201)
+            return make_response(jsonify({'blockee': make_public_blockee(b)}), 409)
     id = blockees.insert(new_blockee)
     blockees.update({'id': id}, eids=[id])
     new_blockee = blockees.get(eid=id)
@@ -44,7 +44,7 @@ def remove_blockee(blockee_id):
     if not blockees.contains(eids=[blockee_id]):
         abort(404)
     blockees.remove(eids=[blockee_id])
-    return jsonify({'result': True})
+    return jsonify({'removed': blockee_id})
 
 def make_public_blockee(blockee):
     new_blockee = {}
@@ -59,6 +59,10 @@ def make_public_blockee(blockee):
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
+
+@app.errorhandler(409)
+def not_found(error):
+    return make_response(jsonify({'error': 'Blockee already exists'}), 404)
 
 @app.errorhandler(422)
 def not_found(error):
