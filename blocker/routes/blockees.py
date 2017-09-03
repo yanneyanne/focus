@@ -4,7 +4,6 @@ from blocker import app
 from tinydb import TinyDB
 from blocker.utils.url_helper import is_url, complete_url
 
-
 db = TinyDB('blocker/blocker_db.json')
 blockees = db.table('blockees')
 
@@ -18,7 +17,6 @@ def get_blockee(blockee_id):
 @app.route('/blockees', methods=['GET'])
 def get_blockees():
     return jsonify({'blockees': list(map(make_public_blockee, blockees.all()))}), 200
-
 
 @app.route('/blockees', methods=['POST'])
 def add_blockee():
