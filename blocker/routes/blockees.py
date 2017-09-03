@@ -1,10 +1,10 @@
 #!env/bin/python3
 from flask import jsonify, request, make_response, url_for, abort
-from blocker import app
+from flask import current_app as app
 from tinydb import TinyDB
 from blocker.utils.url_helper import is_url, complete_url
 
-db = TinyDB('blocker/blocker_db.json')
+db = TinyDB(app.config['DATABASE'])
 blockees = db.table('blockees')
 
 @app.route('/blockees/<int:blockee_id>', methods = ['GET'])
