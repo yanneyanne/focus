@@ -12,11 +12,11 @@ def get_blockee(blockee_id):
     blockee = blockees.get(eid=blockee_id)
     if blockee is None:
         abort(404)
-    return jsonify({'blockee': make_public_blockee(blockee)}), 200
+    return jsonify({'blockee': make_public_blockee(blockee)})
 
 @app.route('/blockees', methods=['GET'])
 def get_blockees():
-    return jsonify({'blockees': list(map(make_public_blockee, blockees.all()))}), 200
+    return jsonify({'blockees': list(map(make_public_blockee, blockees.all()))})
 
 @app.route('/blockees', methods=['POST'])
 def add_blockee():
@@ -33,20 +33,18 @@ def add_blockee():
     }
     for b in blockees:
         if b['name']==new_blockee['name']: # Item has already been added
-            return jsonify({'blockee': make_public_blockee(b)}), 201
+            return make_response(jsonify({'blockee': make_public_blockee(b)}), 201)
     id = blockees.insert(new_blockee)
     blockees.update({'id': id}, eids=[id])
     new_blockee = blockees.get(eid=id)
-    return jsonify({'blockee': make_public_blockee(new_blockee)}), 201
-
+    return make_response(jsonify({'blockee': make_public_blockee(new_blockee)}), 201)
 
 @app.route('/blockees/<int:blockee_id>', methods=['DELETE'])
 def remove_blockee(blockee_id):
     if not blockees.contains(eids=[blockee_id]):
         abort(404)
     blockees.remove(eids=[blockee_id])
-    return jsonify({'result': True}), 200
-
+    return jsonify({'result': True})
 
 def make_public_blockee(blockee):
     new_blockee = {}
