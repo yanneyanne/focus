@@ -2,9 +2,11 @@
 from flask import json, jsonify, request, make_response, abort
 from flask import current_app as app
 from tinydb import TinyDB, Query
-from blocker.utils.host_writer import block_hosts, unblock_hosts
+from blocker.utils.host_writer import HostWriter
 from blocker.routes.blockees import get_blockees
 
+hosts_file_path = app.config['HOSTS_FILE']
+host_writer = HostWriter(hosts_file_path)
 db = TinyDB(app.config['DATABASE'])
 blocker = db.table('blocker')
 
@@ -32,9 +34,9 @@ def set_blocker_state():
 
     # Edit hosts file
     if (request.json['state'] == 'active'):
-        block_hosts(hosts)
+        host_writer.block_hosts(hosts)
     else:
-        unblock_hosts(hosts)
+        host_writer.unblock_hosts()
 
     # Edit blocker status database entry
     State = Query()

@@ -5,11 +5,12 @@ from tinydb import TinyDB
 
 db = TinyDB('blocker/blocker_db.json')
 
-def create_app(config=None):
+def create_app(config = None):
     app = Flask(__name__)
 
     app.config.update(dict(
-        DATABASE=os.path.join(app.root_path, 'blocker_db.json')
+        DATABASE=os.path.join(app.root_path, 'blocker_db.json'),
+        HOSTS_FILE = os.path.join('/etc/hosts')
     ))
 
     # Apply the configs if they are specified

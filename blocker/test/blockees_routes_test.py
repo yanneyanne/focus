@@ -6,12 +6,15 @@ import os
 
 @pytest.fixture(scope="module", autouse=True)
 def app():
-    os_handle, db_path = tempfile.mkstemp()
+    os_handle_db, db_path = tempfile.mkstemp()
+    os_handle_hosts, hosts_path = tempfile.mkstemp()
     test_config = dict(
-        DATABASE = db_path
+        DATABASE = db_path,
+        HOSTS_FILE = hosts_path
     )
     yield create_app(test_config)
-    os.close(os_handle)
+    os.close(os_handle_db)
+    os.close(os_handle_hosts)
 
 def test_get_blockees(client):
     resp = client.get('/blockees')
@@ -25,8 +28,8 @@ def test_get_blockees(client):
 
 def test_add_blockees(client):
     resp = client.post('/blockees',
-                       data=json.dumps({'name': 'google.com'}),
-                       content_type='application/json')
+                       data = json.dumps({'name': 'google.com'}),
+                       content_type = 'application/json')
 
     assert resp.status_code == 201
     assert json.loads(resp.get_data())['blockee'] == {
@@ -36,8 +39,8 @@ def test_add_blockees(client):
     }
 
     resp = client.post('/blockees',
-                       data=json.dumps({'name': 'facebook.com'}),
-                       content_type='application/json')
+                       data = json.dumps({'name': 'facebook.com'}),
+                       content_type = 'application/json')
 
     assert resp.status_code == 201
     assert json.loads(resp.get_data())['blockee'] == {
@@ -48,8 +51,8 @@ def test_add_blockees(client):
 
 def test_add_duplicate(client):
     resp = client.post('/blockees',
-                       data=json.dumps({'name': 'facebook.com'}),
-                       content_type='application/json')
+                       data = json.dumps({'name': 'facebook.com'}),
+                       content_type = 'application/json')
 
     assert resp.status_code == 409
     assert json.loads(resp.get_data())['blockee'] == {
@@ -65,8 +68,8 @@ def test_add_duplicate(client):
 
 def test_add_invalid_url(client):
     resp = client.post('/blockees',
-                       data=json.dumps({'name': 'facebook'}),
-                       content_type='application/json')
+                       data = json.dumps({'name': 'facebook'}),
+                       content_type = 'application/json')
 
     assert resp.status_code == 422
 
