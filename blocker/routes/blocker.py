@@ -15,7 +15,7 @@ def get_blocker():
     State = Query()
     blocker_state = blocker.get(State.state != None)
     if blocker_state is None:
-        blocker_state = 'inactive'
+        blocker_state = {'state': 'inactive'}
     return jsonify({'blocker': blocker_state})
 
 @app.route('/blocker', methods=['PUT'])

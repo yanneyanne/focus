@@ -44,7 +44,7 @@ def remove_blockee(blockee_id):
     if not blockees.contains(eids=[blockee_id]):
         abort(404)
     blockees.remove(eids=[blockee_id])
-    return jsonify({'removed': blockee_id})
+    return jsonify({'removed': url_for('get_blockee', blockee_id=blockee_id, _external=True)})
 
 def make_public_blockee(blockee):
     new_blockee = {}

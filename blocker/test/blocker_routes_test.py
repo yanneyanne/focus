@@ -4,47 +4,35 @@ from blocker import create_app
 import tempfile
 import os
 
-@pytest.fixture(scope = 'module', autouse=True)
-def app():
-    os_handle_db, db_path = tempfile.mkstemp()
-    os_handle_hosts, hosts_path = tempfile.mkstemp()
-    test_config = dict(
-        DATABASE = db_path,
-        HOSTS_FILE = hosts_path
-    )
-    yield create_app(test_config)
-    os.close(os_handle_db)
-    os.close(os_handle_hosts)
+def test_get_blocker_inactive(client):
+    resp = client.get('/blocker')
 
-#def test_get_blockees(client):
-#    resp = client.get('/blockees')
-#
-#    assert resp.status_code == 200
-#    assert json.loads(resp.get_data())['blockees'] == []
-#
-#    resp = client.get('/get_blockee/2')
-#
-#    assert resp.status_code == 404
+    assert resp.status_code == 200
+    assert json.loads(resp.get_data())['blocker']['state'] == 'inactive'
 
-#def test_add_blockees(client):
-#    resp = client.post('/blockees',
-#                       data=json.dumps({'name': 'google.com'}),
-#                       content_type='application/json')
-#
-#    assert resp.status_code == 201
-#    assert json.loads(resp.get_data())['blockee'] == {
-#        'name': 'google.com',
-#        'url': 'www.google.com http://www.google.com https://www.google.com',
-#        'uri': 'http://localhost/blockees/1'
-#    }
-#
-#    resp = client.post('/blockees',
-#                       data=json.dumps({'name': 'facebook.com'}),
-#                       content_type='application/json')
-#
-#    assert resp.status_code == 201
-#    assert json.loads(resp.get_data())['blockee'] == {
-#        'name': 'facebook.com',
-#        'url': 'www.facebook.com http://www.facebook.com https://www.facebook.com',
-#        'uri': 'http://localhost/blockees/2'
-#    }
+def test_set_blocker_state_invalid(client):
+    resp = client.put('blocker',
+                      data = json.dumps({'stateqwerty': 'active'}),
+                      content_type = 'application/json')
+    assert resp.status_code == 400
+    resp = client.put('blocker',
+                      data = json.dumps({'state': 'qwerty'}),
+                      content_type = 'application/json')
+    assert resp.status_code == 400
+
+def test_block(client):
+    resp = client.put('blocker',
+                      data = json.dumps({'state': 'active'}),
+                      content_type = 'application/json')
+    assert resp.status_code == 200
+
+    resp = client.get('/blocker')
+    assert resp.status_code == 200
+    assert json.loads(resp.get_data())['blocker']['state'] == 'active'
+
+    resp = client.put('blocker',
+                      data = json.dumps({'state': 'inactive'}),
+                      content_type = 'application/json')
+    resp = client.get('/blocker')
+    assert resp.status_code == 200
+    assert json.loads(resp.get_data())['blocker']['state'] == 'inactive'
