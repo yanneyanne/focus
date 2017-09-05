@@ -1,11 +1,13 @@
 #!env/bin/python3
 from flask import json, jsonify, request, make_response, abort
-from blocker import app
+from flask import current_app as app
 from tinydb import TinyDB, Query
-from blocker.utils.host_writer import block_hosts, unblock_hosts
+from blocker.utils.host_writer import HostWriter
 from blocker.routes.blockees import get_blockees
 
-db = TinyDB('blocker/blocker_db.json')
+hosts_file_path = app.config['HOSTS_FILE']
+host_writer = HostWriter(hosts_file_path)
+db = TinyDB(app.config['DATABASE'])
 blocker = db.table('blocker')
 
 @app.route('/blocker', methods = ['GET'])
@@ -13,7 +15,7 @@ def get_blocker():
     State = Query()
     blocker_state = blocker.get(State.state != None)
     if blocker_state is None:
-        blocker_state = 'inactive'
+        blocker_state = {'state': 'inactive'}
     return jsonify({'blocker': blocker_state})
 
 @app.route('/blocker', methods=['PUT'])
@@ -25,16 +27,16 @@ def set_blocker_state():
         abort(400)
 
     # Retrieve the appropriate urls to be blocked
-    blockees = json.loads(get_blockees().get_data())["blockees"]
+    blockees = json.loads(get_blockees().get_data())['blockees']
     hosts = []
     for host_obj in blockees:
-        hosts.append(host_obj["url"])
+        hosts.append(host_obj['url'])
 
     # Edit hosts file
     if (request.json['state'] == 'active'):
-        block_hosts(hosts)
+        host_writer.block_hosts(hosts)
     else:
-        unblock_hosts(hosts)
+        host_writer.unblock_hosts()
 
     # Edit blocker status database entry
     State = Query()
@@ -47,4 +49,3 @@ def set_blocker_state():
 @app.errorhandler(400)
 def unexpected_payload(error):
     return make_response(jsonify({'error': 'Expected JSON payload with "state" set to "active" or "inactive"'}), 400)
-
