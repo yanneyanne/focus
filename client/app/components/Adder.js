@@ -11,15 +11,18 @@ class Adder extends Component {
 
   render() {
     return (
-      <div className="Adder">
-        <div className="listElement">
-          <input ref="input"
-            onKeyPress={(e) => {(e.key === 'Enter' ? this.onInput(this.refs.input) : null)}}>
-          </input>
-          <button onClick={() => this.onInput(this.refs.input)}>
-            Add
-          </button>
-        </div> 
+      <div className = "Adder">
+        <input
+          ref = "input"
+          onKeyPress = {(e) => {
+            (e.key === 'Enter' ? this.onInput(this.refs.input) : null)
+          }}
+          disabled = {this.props.blockerActive} />
+        <button 
+          onClick = {() => this.onInput(this.refs.input)}
+          disabled = {this.props.blockerActive}>
+          Add
+        </button>
       </div>
     )
   }
@@ -27,6 +30,7 @@ class Adder extends Component {
 
 function mapStateToProps(state) {
   return {
+    blockerActive: state.block.get('blockerActive')
   }
 }
 
