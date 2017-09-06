@@ -5,18 +5,20 @@ from tinydb import TinyDB
 from blocker.utils.url_helper import is_url, complete_url
 
 db = TinyDB(app.config['DATABASE'])
-blockees = db.table('blockees')
+blockees_table = db.table('blockees')
 
 @app.route('/blockees/<int:blockee_id>', methods = ['GET'])
 def get_blockee(blockee_id):
-    blockee = blockees.get(eid=blockee_id)
+    blockee = blockees_table.get(eid=blockee_id)
     if blockee is None:
         abort(404)
     return jsonify({'blockee': make_public_blockee(blockee)})
 
 @app.route('/blockees', methods=['GET'])
 def get_blockees():
-    return jsonify({'blockees': list(map(make_public_blockee, blockees.all()))})
+    # Blockees are reversed to get a LIFO ordering
+    blockees_list = reversed(blockees_table.all())
+    return jsonify({'blockees': list(map(make_public_blockee, blockees_list))})
 
 @app.route('/blockees', methods=['POST'])
 def add_blockee():
@@ -31,19 +33,19 @@ def add_blockee():
         'name': request.json['name'],
         'url': complete_url(request.json['name'])
     }
-    for b in blockees:
+    for b in blockees_table:
         if b['name']==new_blockee['name']: # Item has already been added
             return make_response(jsonify({'blockee': make_public_blockee(b)}), 409)
-    id = blockees.insert(new_blockee)
-    blockees.update({'id': id}, eids=[id])
-    new_blockee = blockees.get(eid=id)
+    id = blockees_table.insert(new_blockee)
+    blockees_table.update({'id': id}, eids=[id])
+    new_blockee = blockees_table.get(eid=id)
     return make_response(jsonify({'blockee': make_public_blockee(new_blockee)}), 201)
 
 @app.route('/blockees/<int:blockee_id>', methods=['DELETE'])
 def remove_blockee(blockee_id):
-    if not blockees.contains(eids=[blockee_id]):
+    if not blockees_table.contains(eids=[blockee_id]):
         abort(404)
-    blockees.remove(eids=[blockee_id])
+    blockees_table.remove(eids=[blockee_id])
     return jsonify({'removed': url_for('get_blockee', blockee_id=blockee_id, _external=True)})
 
 def make_public_blockee(blockee):

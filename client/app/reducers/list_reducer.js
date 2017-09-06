@@ -6,15 +6,6 @@ function defaultFunction(state) {
   return state
 }
 
-function toggleAdding(state) {
-  const status = state.get('isAddingItem', undefined)   
-  var nextStatus = true
-  if (status===true) {
-    nextStatus = false
-  }
-  return state.set('isAddingItem', nextStatus)
-}
-
 function addItem(state, item) {
   const blockees = state.get('blockees', List())
   let alreadyAdded = false
@@ -26,7 +17,7 @@ function addItem(state, item) {
   if (alreadyAdded) {
     return state
   }
-  const newBlockees = blockees.push(item)
+  const newBlockees = blockees.insert(0, item)
   return state.set('blockees', newBlockees)
 }
 
