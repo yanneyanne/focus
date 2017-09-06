@@ -16,6 +16,7 @@ def get_blockee(blockee_id):
 
 @app.route('/blockees', methods=['GET'])
 def get_blockees():
+    # Blockees are reversed to get a LIFO ordering
     blockees_list = reversed(blockees_table.all())
     return jsonify({'blockees': list(map(make_public_blockee, blockees_list))})
 

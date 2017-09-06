@@ -17,7 +17,7 @@ function addItem(state, item) {
   if (alreadyAdded) {
     return state
   }
-  const newBlockees = blockees.push(item)
+  const newBlockees = blockees.insert(0, item)
   return state.set('blockees', newBlockees)
 }
 
