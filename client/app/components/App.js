@@ -3,7 +3,6 @@ import BlockList from './BlockList'
 import Timer from './Timer'
 import ButtonRow from './ButtonRow'
 import Adder from './Adder'
-import { List } from 'immutable'
 
 
 export default class App extends Component {
