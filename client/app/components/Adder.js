@@ -36,9 +36,9 @@ class Adder extends Component {
 
 function mapStateToProps(state) {
   return {
-    blockerActive: state.block.get('blockerActive'),
-    errorActive: state.list.get('inputErrorActive'),
-    errorMessage: state.list.get('errorMessage')
+    blockerActive: state.blocker.get('blockerActive'),
+    errorActive: state.blockees.get('inputErrorActive'),
+    errorMessage: state.blockees.get('errorMessage')
   }
 }
 

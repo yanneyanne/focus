@@ -15,7 +15,7 @@ class ButtonRow extends Component {
 
 function mapStateToProps(state) {
   return {
-    blockerActive: state.block.get('blockerActive')
+    blockerActive: state.blocker.get('blockerActive')
   }
 }
 

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import list from './list_reducer'
-import block from './block_reducer'
+import blockees from './blockees_reducer'
+import blocker from './blocker_reducer'
 
 export default combineReducers({
-  list,
-  block
+  blockees,
+  blocker
 })

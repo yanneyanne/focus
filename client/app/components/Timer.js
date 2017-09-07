@@ -44,8 +44,8 @@ class Timer extends Component {
 
 function mapStateToProps(state) {
   return {
-    blockerActive: state.block.get('blockerActive'),
-    time: state.block.get('time')
+    blockerActive: state.blocker.get('blockerActive'),
+    time: state.blocker.get('time')
   }
 }
 
