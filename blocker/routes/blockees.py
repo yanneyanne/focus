@@ -34,7 +34,7 @@ def add_blockee():
         'url': complete_url(request.json['name'])
     }
     for b in blockees_table:
-        if b['name']==new_blockee['name']: # Item has already been added
+        if b['url']==new_blockee['url']: # Item has already been added
             return make_response(jsonify({'blockee': make_public_blockee(b)}), 409)
     id = blockees_table.insert(new_blockee)
     blockees_table.update({'id': id}, eids=[id])
