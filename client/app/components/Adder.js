@@ -23,6 +23,12 @@ class Adder extends Component {
           disabled = {this.props.blockerActive}>
           Add
         </button>
+        {this.props.errorActive ?
+          <div>
+            {this.props.errorMessage}
+          </div> :
+          null
+        }
       </div>
     )
   }
@@ -30,7 +36,9 @@ class Adder extends Component {
 
 function mapStateToProps(state) {
   return {
-    blockerActive: state.block.get('blockerActive')
+    blockerActive: state.blocker.get('blockerActive'),
+    errorActive: state.blockees.get('inputErrorActive'),
+    errorMessage: state.blockees.get('errorMessage')
   }
 }
 

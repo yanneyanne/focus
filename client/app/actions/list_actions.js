@@ -7,11 +7,16 @@ export function addItem(name) {
     const route = 'blockees'
     const params = { "name": name }
     return api.post(route, params).then((resp) => {
-      let item = {
-        name: resp.blockee.name,
-        uri: resp.blockee.uri
+      if (resp.ok) {
+        dispatch(fireRemoveInputError())
+        let item = {
+          name: resp.blockee.name,
+          uri: resp.blockee.uri
+        }
+        dispatch(fireAddItem(item))
+      } else {
+        dispatch(fireInputError(resp.status))
       }
-      dispatch(fireAddItem(item))
     })
   }
 }
@@ -21,7 +26,19 @@ function fireAddItem(item) {
     type: types.ADD_ITEM,
     item
   }
+}
 
+function fireInputError(statusCode) {
+  return {
+    type: types.SET_INPUT_ERROR,
+    statusCode
+  }
+}
+
+function fireRemoveInputError() {
+  return {
+    type: types.REMOVE_INPUT_ERROR
+  }
 }
 
 export function deleteItem(item) {

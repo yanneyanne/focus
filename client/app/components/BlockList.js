@@ -29,7 +29,7 @@ class BlockList extends Component {
 
 function mapStateToProps(state) {
   return {
-    listItems: state.list.get('blockees')
+    listItems: state.blockees.get('blockees')
   }
 }
 
