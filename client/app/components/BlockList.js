@@ -17,7 +17,8 @@ class BlockList extends Component {
         {this.getListItems().map(item =>
           <div key={item.uri}>
             {item.name}
-            <button onClick={() => this.props.deleteItem(item)}>
+            <button onClick={() => this.props.deleteItem(item)}
+              disabled = {this.props.blockerActive}>
               X
             </button>
           </div>
@@ -29,7 +30,8 @@ class BlockList extends Component {
 
 function mapStateToProps(state) {
   return {
-    listItems: state.blockees.get('blockees')
+    listItems: state.blockees.get('blockees'),
+    blockerActive: state.blocker.get('blockerActive')
   }
 }
 
