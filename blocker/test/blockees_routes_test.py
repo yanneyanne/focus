@@ -52,6 +52,27 @@ def test_add_duplicate(client):
     assert resp.status_code == 200
     assert len(json.loads(resp.get_data())['blockees']) == 1
 
+def test_add_equivalent_duplicate(client):
+    resp = client.post('/blockees',
+                       data = json.dumps({'name': 'facebook.com'}),
+                       content_type = 'application/json')
+
+    assert resp.status_code == 201
+    assert check_blockee_equality('facebook.com',
+                                  json.loads(resp.get_data())['blockee'])
+
+    resp = client.post('/blockees',
+                       data = json.dumps({'name': 'www.facebook.com'}),
+                       content_type = 'application/json')
+
+    assert resp.status_code == 409
+
+    resp = client.get('/blockees')
+
+    assert resp.status_code == 200
+    assert len(json.loads(resp.get_data())['blockees']) == 1
+
+
 def test_add_invalid_url(client):
     resp = client.post('/blockees',
                        data = json.dumps({'name': 'facebook'}),
