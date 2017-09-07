@@ -1,5 +1,6 @@
 import { List, Map } from 'immutable'
 import * as types from '../actions/types'
+import error_map from './error_map'
 
 function defaultFunction(state) {
   console.log("Calling default function in reducer")
@@ -43,6 +44,18 @@ function loadBlockees(state, blockees) {
   return state.set('blockees', newBlockees)
 }
 
+function setInputError(state, statusCode) {
+  let newState = state.set('inputErrorActive', true)
+  newState = newState.set('errorMessage', error_map[statusCode])
+  return newState
+}
+
+function removeInputError(state) {
+  let newState = state.set('inputErrorActive', false)
+  newState = newState.set('errorMessage', '')
+  return newState
+}
+
 export default function(state = Map(), action) {
   switch (action.type) {
     case types.TOGGLE_ADDING:
@@ -53,6 +66,10 @@ export default function(state = Map(), action) {
       return addItem(state, action.item)
     case types.LOAD_BLOCKEES:
       return loadBlockees(state, action.blockees)
+    case types.SET_INPUT_ERROR:
+      return setInputError(state, action.statusCode)
+    case types.REMOVE_INPUT_ERROR:
+      return removeInputError(state)
   }
   return state
 }

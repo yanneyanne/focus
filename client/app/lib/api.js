@@ -25,12 +25,17 @@ class Api {
     let options = Object.assign({ method: verb }, params ? { body: JSON.stringify(params) } : null );
     options.headers = Api.headers()
 
-    return fetch(url,options).then((response) => {
-      let json = response.json()
-      if(response.ok) {
-        return json
-      }
-      return json.then(err => {throw err})
+    let response = fetch(url,options)
+    let payload = response.then((resp) => {
+      return resp.json()
+    })
+
+    // Return both the payload as well the status code and ok-value
+    return Promise.all([payload, response]).then(([payload, response]) => {
+      let aggregate = payload
+      aggregate.ok = response.ok
+      aggregate.status = response.status
+      return aggregate
     })
   }
 
