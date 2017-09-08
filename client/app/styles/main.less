@@ -1,11 +1,18 @@
-@body-bg: #CCC;
-
 body {
 	margin: 0;
 	padding: 0;
-	background-color: @body-bg;
+	background-color: @brightWhite;
+	font-family: "Raleway", sans-serif;
 }
 
-@import "./ButtonRow.less";
-@import "./Timer.less";
-@import "./BlockList.less";
+@import './constants.less';
+
+@import './Adder.less';
+@import './Blockees.less';
+@import './Timer.less';
+@import './ButtonRow.less';
+
+@font-face {
+  font-family: "Raleway";
+  src: url('./fonts/Raleway-Regular.ttf');
+}

@@ -13,7 +13,7 @@ class BlockList extends Component {
 
   render() {
     return (
-      <div className="BlockList">
+      <div className="blockees">
         {this.getListItems().map(item =>
           <div key={item.uri}>
             {item.name}
