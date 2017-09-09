@@ -12,7 +12,8 @@ function setInitialTime(state, newTime) {
 }
 
 function performTick(state) {
-  let newTime = nextTick(state.get('time'))
+  let currentTime = state.get('time') || "00:00"
+  let newTime = nextTick(currentTime)
   return state.set('time', newTime)
 }
 
