@@ -1,12 +1,30 @@
-.ButtonRow {
+.buttonRow {
 	width: 100%;
 	position : absolute;
 	bottom : 0;
-	height : @buttonRowHeight;
+	height : @bottomBarHeight;
 	button {
-		display: block;
-		margin: 3em auto 2em;	
+		position: absolute;
+		width: @blockerButtonWidth;
+		height: @blockerButtonHeight;
+		background: @green;
+		left: 50%;
+		margin-left: -@blockerButtonWidth/2;
+		margin-top: 15px;
+		color: @brightWhite;
+		font-size: @blockerButtonFontSize;
+		font-family: "Raleway-Bold";
+		border: 0;
+		border-radius: @borderRadius;
+		&:hover {
+			background: @darkGreen;
+		}
+		&:active {
+			background: @clickGreen;
+		}
+		&:focus {
+			outline: 0;
+		}
 	}
 }
-
-@import "./constants.less";
+@import './constants.less';

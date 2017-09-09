@@ -11,7 +11,7 @@ class Adder extends Component {
 
   render() {
     return (
-      <div className = "Adder">
+      <div className = "adder">
         <input
           ref = "input"
           onKeyPress = {(e) => {
@@ -21,10 +21,12 @@ class Adder extends Component {
         <button 
           onClick = {() => this.onInput(this.refs.input)}
           disabled = {this.props.blockerActive}>
-          Add
+          <div id = "buttonText">
+            +
+          </div>
         </button>
         {this.props.errorActive ?
-          <div>
+          <div className = "error">
             {this.props.errorMessage}
           </div> :
           null

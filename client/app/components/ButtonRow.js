@@ -5,9 +5,9 @@ import { connect } from 'react-redux'
 class ButtonRow extends Component {
   render() {
     return (
-      <div className="ButtonRow">
+      <div className="buttonRow">
         <button disabled = {this.props.blockerActive}
-          onClick = {() => this.props.initiateBlock()}>Block</button>
+          onClick = {() => this.props.initiateBlock()}>F O C U S</button>
       </div>
     )
   }
