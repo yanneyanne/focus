@@ -13,13 +13,13 @@ class BlockList extends Component {
 
   render() {
     return (
-      <div className="blockees">
+      <div className='blockees'>
         {this.getListItems().map(item =>
-          <div key={item.uri}>
+          <div key={item.uri} className='listItem'>
             {item.name}
             <button onClick={() => this.props.deleteItem(item)}
               disabled = {this.props.blockerActive}>
-              X
+              <div className='cross' />
             </button>
           </div>
         )}

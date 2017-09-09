@@ -1,10 +1,44 @@
 .blockees {
 	display: table;
 	margin: 2em auto;
-	button {
-		margin-left: 10px;	
-	}
-	.listElement {
-		display: inline;	
+	.listItem {
+		color: @darkGrey;
+		margin: 0;
+		width: @blockeesWidth;
+		position: relative;
+		text-align: center;
+		padding: 5px;
+		border-bottom: 1px solid @offWhite;
+		&:last-of-type {
+			border-bottom: none;
+		}
+		button {
+			color: @grey;
+			float: right;
+			visibility: hidden;
+			border: none;
+			background: transparent;
+			&:hover {
+				color: @darkGrey;
+			}
+			&:focus {
+				outline: 0;
+			}
+		}
+		&:hover {
+			button {
+				visibility: visible;
+			}
+		}
+		.cross:after {
+			position: absolute;
+			right: 6px;
+			bottom: 0px;
+			content: '\2573';
+			line-height: 29px;
+			font-size: 12px;
+		}
 	}
 }
+
+@import './constants.less';
