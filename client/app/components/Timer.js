@@ -30,7 +30,7 @@ class Timer extends Component {
 
   render() {
     return (
-      <div className = "Timer">
+      <div className = "timer">
         <input
           value = {this.props.time}
           disabled = {this.props.blockerActive}
