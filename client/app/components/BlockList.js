@@ -17,7 +17,9 @@ class BlockList extends Component {
         <div className='listWrapper'>
           {this.getListItems().map(item =>
             <div key={item.uri} className='listItem'>
-              {item.name}
+              <div className='listItemText'>
+                {item.name}
+              </div>
               <button onClick={() => this.props.deleteItem(item)}
                 disabled = {this.props.blockerActive}>
                 <div className='cross' />
