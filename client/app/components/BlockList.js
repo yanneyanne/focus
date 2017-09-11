@@ -14,15 +14,19 @@ class BlockList extends Component {
   render() {
     return (
       <div className='blockees'>
-        {this.getListItems().map(item =>
-          <div key={item.uri} className='listItem'>
-            {item.name}
-            <button onClick={() => this.props.deleteItem(item)}
-              disabled = {this.props.blockerActive}>
-              <div className='cross' />
-            </button>
-          </div>
-        )}
+        <div className='listWrapper'>
+          {this.getListItems().map(item =>
+            <div key={item.uri} className='listItem'>
+              <div className='listItemText'>
+                {item.name}
+              </div>
+              <button onClick={() => this.props.deleteItem(item)}
+                disabled = {this.props.blockerActive}>
+                <div className='cross' />
+              </button>
+            </div>
+          )}
+      </div>
       </div>
     )
   }

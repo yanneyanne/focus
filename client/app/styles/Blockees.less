@@ -1,6 +1,13 @@
 .blockees {
-	display: table;
-	margin: 2em auto;
+	margin: 0 auto 0 auto;
+	padding-top: 1.5em;
+	height: ~"calc(100% - 295px)";
+	display: block;
+	overflow: auto;
+	.listWrapper {
+		width: @blockeesWidth + 20;
+		margin: auto;
+	}
 	.listItem {
 		color: @darkGrey;
 		margin: 0;
@@ -11,6 +18,12 @@
 		border-bottom: 1px solid @offWhite;
 		&:last-of-type {
 			border-bottom: none;
+			margin-bottom: 1.5em;
+		}
+		.listItemText {
+			width: @blockeesWidth - 80px;
+			padding-left: 47px;
+			overflow: hidden;
 		}
 		button {
 			color: @grey;
