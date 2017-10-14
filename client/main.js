@@ -10,10 +10,12 @@ app.on('window-all-closed', function() {
 
 app.on('ready', function() {
   mainWindow = new BrowserWindow({
-    width: 1360,
+    width: 700,
     height: 800,
-    frame: false,
-    titleBarStyle : 'hidden-inset'
+    minWidth: 700,
+    minHeight: 800,
+    movable: true,
+    titleBarStyle : 'hidden',
   });
 
   mainWindow.loadURL('file://' + __dirname + '/public/index.html');
@@ -22,5 +24,8 @@ app.on('ready', function() {
 
   mainWindow.on('closed', function() {
     mainWindow = null;
+  });
+  mainWindow.webContents.on("devtools-opened", () => {
+    mainWindow.webContents.closeDevTools();
   });
 });
