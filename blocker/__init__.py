@@ -1,9 +1,10 @@
 #!env/bin/python3
 import os
-from flask import Flask
 from tinydb import TinyDB
+from flask import Flask
+import time
 
-db = TinyDB('blocker/blocker_db.json')
+db = TinyDB('blocker_db.json')
 
 def create_app(config = None):
     app = Flask(__name__)
@@ -22,5 +23,9 @@ def create_app(config = None):
         return "Hello World!"
 
     with app.app_context():
-        from blocker.routes import blockees, blocker
+        from routes import blockees, blocker
     return app
+
+if __name__=='__main__':
+    app = create_app()
+    app.run()

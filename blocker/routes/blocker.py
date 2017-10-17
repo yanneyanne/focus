@@ -2,8 +2,8 @@
 from flask import json, jsonify, request, make_response, abort
 from flask import current_app as app
 from tinydb import TinyDB, Query
-from blocker.utils.host_writer import HostWriter
-from blocker.routes.blockees import get_blockees
+from utils.host_writer import HostWriter
+from routes.blockees import get_blockees
 
 hosts_file_path = app.config['HOSTS_FILE']
 host_writer = HostWriter(hosts_file_path)
