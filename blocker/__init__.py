@@ -1,16 +1,17 @@
 #!env/bin/python3
 import os
+import sys
 from tinydb import TinyDB
 from flask import Flask
-import time
 
-db = TinyDB('blocker_db.json')
+path = os.path.join(os.path.dirname(sys.argv[0]), "blocker_db.json")
+db = TinyDB(path)
 
 def create_app(config = None):
     app = Flask(__name__)
 
     app.config.update(dict(
-        DATABASE=os.path.join(app.root_path, 'blocker_db.json'),
+        DATABASE = os.path.join(os.path.dirname(sys.argv[0]), "blocker_db.json"),
         HOSTS_FILE = os.path.join('/etc/hosts')
     ))
 
