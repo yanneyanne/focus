@@ -1,5 +1,7 @@
 {
   "name": "focus",
+  "author": "iyor",
+  "description": "A productivity tool that picks up where your willpower left off",
   "version": "0.1.0",
   "main": "main.js",
   "devDependencies": {
@@ -16,10 +18,10 @@
     "less-loader": "^2.2.2",
     "mocha": "^3.2.0",
     "node-libs-browser": "^2.0.0",
-    "webpack-dev-server": "^2.4.1"
+    "webpack-dev-server": "^2.4.1",
+    "electron": "^1.6.1"
   },
   "dependencies": {
-    "electron": "^1.6.1",
     "immutable": "^3.8.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
