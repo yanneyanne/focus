@@ -2,7 +2,7 @@
 from flask import jsonify, request, make_response, url_for, abort
 from flask import current_app as app
 from tinydb import TinyDB
-from blocker.utils.url_helper import is_url, complete_url
+from utils.url_helper import is_url, complete_url
 
 db = TinyDB(app.config['DATABASE'])
 blockees_table = db.table('blockees')

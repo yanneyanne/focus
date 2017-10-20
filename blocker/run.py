@@ -1,8 +1,7 @@
-#!blocker/env/bin/python3
+#!env/bin/python3
 # App used to start the blocker backend
 
-from blocker import create_app
-#from blocker import app
+from __init__ import create_app
 
 if __name__=='__main__':
     app = create_app()
