@@ -1,7 +1,11 @@
-var electron = require('electron')
-var app = electron.app
-var BrowserWindow = electron.BrowserWindow
-var Menu = electron.Menu
+const path = require('path')
+const pyPath = path.join(__dirname, '..', 'blocker', 'env', 'bin', 'python3')
+var scriptPath = path.join(__dirname, '..', 'blocker', '__init__.py')
+require('child_process').spawn('../blocker/env/bin/python3', [scriptPath])
+const electron = require('electron')
+const app = electron.app
+const BrowserWindow = electron.BrowserWindow
+const Menu = electron.Menu
 
 app.on('window-all-closed', function() {
   if (process.platform != 'darwin') {
@@ -10,6 +14,7 @@ app.on('window-all-closed', function() {
 })
 
 app.on('ready', function() {
+
   var win = new BrowserWindow({
     width: 700,
     height: 800,
