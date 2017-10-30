@@ -66,6 +66,8 @@ export function loadBlockees() {
     }).catch((err) => {
       console.log("Error connecting to backend application")
       console.log(err)
+      console.log("Retrying...")
+      loadBlockees()
     })
   }
 }

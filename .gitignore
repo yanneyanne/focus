@@ -154,4 +154,7 @@ ENV/
 /site
 
 # DB-json file
-blocker/blocker_db.json
+*/blocker_db.json
+
+# Asar electron dist file
+*.asar
