@@ -57,7 +57,7 @@ function fireDeleteItem(item) {
 }
 
 export function loadBlockees() {
-  console.log("Loading list from db action")
+  console.log("Loading blockees")
   return (dispatch, getState) => {
     const route = 'blockees'
     return api.get(route).then((resp) => {
@@ -66,8 +66,7 @@ export function loadBlockees() {
     }).catch((err) => {
       console.log("Error connecting to backend application")
       console.log(err)
-      console.log("Retrying...")
-      loadBlockees()
+      dispatch(loadBlockees())
     })
   }
 }

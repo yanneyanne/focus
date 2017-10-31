@@ -1,8 +1,8 @@
-import * as ListActions from './list_actions'
+import * as BlockeesActions from './blockees_actions'
 import * as BlockActions from './block_actions'
 
 export default Object.assign({},
-  ListActions,
+  BlockeesActions,
   BlockActions
 )
 
