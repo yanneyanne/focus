@@ -12,9 +12,8 @@ app.on('window-all-closed', function() {
 
 app.on('ready', function() {
 
-  const pyPath = path.join(__dirname, '..', 'blocker', 'env', 'bin', 'python3')
-  let scriptPath = path.join(__dirname, '..', 'blocker', '__init__.py')
-  pythonProcess = require('child_process').spawn('../blocker/env/bin/python3', [scriptPath])
+  let scriptPath = path.join(__dirname, '..', '__init__')
+  pythonProcess = require('child_process').spawn(scriptPath)
 
   let win = new BrowserWindow({
     width: 700,
