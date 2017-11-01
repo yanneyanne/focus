@@ -1,5 +1,6 @@
 const path = require('path')
 const electron = require('electron')
+const sudo = require('sudo-prompt')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const Menu = electron.Menu
@@ -7,14 +8,21 @@ const Menu = electron.Menu
 let pythonProcess = null
 
 app.on('window-all-closed', function() {
-  app.quit();
+  app.quit()
 })
 
 app.on('ready', function() {
 
-  const pyPath = path.join(__dirname, '..', 'blocker', 'env', 'bin', 'python3')
+  let options = {name: 'focus'}
+  let pyPath = path.join(__dirname, '..', 'blocker', 'env', 'bin', 'python3')
   let scriptPath = path.join(__dirname, '..', 'blocker', '__init__.py')
-  pythonProcess = require('child_process').spawn('../blocker/env/bin/python3', [scriptPath])
+  let command = pyPath + " " + scriptPath
+  pythonProcess = sudo.exec(command, options,
+    function(error, stdout, stderr) {
+      if (error) throw error
+        console.log('stdout: ' + stdout)
+    }
+  )
 
   let win = new BrowserWindow({
     width: 700,
